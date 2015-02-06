@@ -3,6 +3,8 @@ GEM
   specs:
     app_conf (0.4.2)
     cinch (2.2.3)
+    cinch-commands (0.1.0)
+      cinch (~> 2.0)
     minitest (5.5.1)
     rake (10.4.2)
 
@@ -12,5 +14,6 @@ PLATFORMS
 DEPENDENCIES
   app_conf
   cinch
+  cinch-commands
   minitest
   rake
