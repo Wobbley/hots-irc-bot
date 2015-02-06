@@ -1,0 +1,6 @@
+irc:
+  server: foo.example.com
+  channels:
+    - "#foo"
+    - "#bar"
+  nick: foobot

@@ -1,0 +1,5 @@
+irc:
+  server: 'foo.example.com'
+  channels:
+    - "#foo"
+  nick: botname
