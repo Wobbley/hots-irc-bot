@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rake/testtask'
-require 'app_conf'
 
+require File.dirname(__FILE__) + '/lib/utils/configuration'
 require File.dirname(__FILE__) + '/lib/hotsbot/bot_factory'
 
 Rake::TestTask.new do |t|
@@ -12,9 +12,8 @@ Rake::Task
 
 desc 'Run hotsbot'
 task :run do
-  configuration = AppConf.new
-  configuration.load(File.dirname(__FILE__) + '/config.yml')
+  Hotsbot::Configuration.load(File.dirname(__FILE__) + '/config.yml')
 
-  bot = BotFactory.from_configuration(configuration)
+  bot = Hotsbot::BotFactory.from_configuration
   bot.start
 end
