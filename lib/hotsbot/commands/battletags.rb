@@ -22,7 +22,7 @@ module Hotsbot::Commands
       summary: 'Saves your BattleTag'
     )
 
-    command :removebt
+    command :removebt, {}, summary: 'Remove your BattleTag from the database'
 
     def initialize(bot, db=nil)
       super bot
