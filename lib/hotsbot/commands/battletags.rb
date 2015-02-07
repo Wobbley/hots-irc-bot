@@ -18,7 +18,8 @@ module Hotsbot::Commands
     match 'addbt', method: :addbt
     command(
       :addbt,
-      { battletag: :string, region: :string }
+      { battletag: :string, region: :string },
+      summary: 'Saves your BattleTag'
     )
 
     def initialize(bot, db=nil)
