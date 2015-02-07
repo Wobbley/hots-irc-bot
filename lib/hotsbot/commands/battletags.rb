@@ -15,9 +15,10 @@ module Hotsbot::Commands
       summary: 'Print the BattleTag for the entered name'
     )
 
+    match 'addbt', method: :addbt
     command(
       :addbt,
-      { battletag: %r{^[a-zA-Z0-9]+[#]\d{4,5}$}, region: %r{[a-zA-Z]{2}} }
+      { battletag: :string, region: :string }
     )
 
     def initialize(bot, db=nil)
@@ -34,7 +35,7 @@ module Hotsbot::Commands
 
     def getbt(m, username=nil)
       if username.nil?
-        m.user.send 'A irc username is required, example: "!getbt Ravilan"'
+        m.user.send 'A IRC username is required, example: !getbt Username'
       else
         result = @db.execute('SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username])
 
@@ -49,10 +50,14 @@ module Hotsbot::Commands
       end
     end
 
-    def addbt(m, battletag, region)
-      @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [m.user.nick, battletag, region])
+    def addbt(m, battletag=nil, region=nil)
+      if battletag.nil? or region.nil?
+        m.channel.send 'A battletag and region are required, example: !addbt Username#123 EU'
+      else
+        @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [m.user.nick, battletag, region])
 
-      m.channel.send 'Battletag added'
+        m.channel.send 'Battletag added'
+      end
     end
   end
 end

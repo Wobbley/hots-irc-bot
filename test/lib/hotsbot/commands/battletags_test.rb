@@ -63,7 +63,7 @@ module Hotsbot::Commands
     def test_if_no_username_is_given_help_message_is_sent
       message = OpenStruct.new
       message.user = MiniTest::Mock.new
-      message.user.expect :send, nil, ['A irc username is required, example: "!getbt Ravilan"']
+      message.user.expect :send, nil, ['A IRC username is required, example: !getbt Username']
 
       @SUT.getbt(message)
 
@@ -96,6 +96,16 @@ module Hotsbot::Commands
         [battletag, region],
         db.execute('SELECT battletag, region FROM Battletags WHERE nick=?', [username]).first
       )
+    end
+
+    def test_addbt_send_a_message_if_no_parameters_are_given
+      message = OpenStruct.new
+      message.channel = MiniTest::Mock.new
+      message.channel.expect :send, nil, ['A battletag and region are required, example: !addbt Username#123 EU']
+
+      @SUT.addbt(message)
+
+      message.verify
     end
   end
 end
