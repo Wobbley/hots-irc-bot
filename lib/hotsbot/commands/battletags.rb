@@ -37,7 +37,7 @@ module Hotsbot::Commands
       if username.nil?
         m.user.send 'A IRC username is required, example: !getbt Username'
       else
-        result = @db.execute('SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username])
+        result = load_battletag(username)
 
         if result.empty?
           m.channel.send "No BattleTag found for #{username}"
@@ -50,13 +50,22 @@ module Hotsbot::Commands
       end
     end
 
+    def load_battletag(username)
+      @db.execute('SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username])
+    end
+
     def addbt(m, battletag=nil, region=nil)
       if battletag.nil? or region.nil?
         m.channel.send 'A battletag and region are required, example: !addbt Username#123 EU'
       else
-        @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [m.user.nick, battletag, region])
-
-        m.channel.send 'Battletag added'
+        result = load_battletag(m.user.nick)
+        if result.empty?
+          @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [m.user.nick, battletag, region])
+          m.channel.send 'Battletag added'
+        else
+          @db.execute('UPDATE Battletags SET battletag = ?, region = ? WHERE nick = ?', [battletag, region, m.user.nick])
+          m.channel.send 'Battletag updated'
+        end
       end
     end
   end

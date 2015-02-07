@@ -96,6 +96,8 @@ module Hotsbot::Commands
         [battletag, region],
         db.execute('SELECT battletag, region FROM Battletags WHERE nick=?', [username]).first
       )
+
+      db.execute('DELETE FROM Battletags')
     end
 
     def test_addbt_send_a_message_if_no_parameters_are_given
@@ -106,6 +108,39 @@ module Hotsbot::Commands
       @SUT.addbt(message)
 
       message.verify
+    end
+
+    def test_addbt_update_if_entry_already_exists
+      username = 'foo'
+      battletag = 'test#1234'
+      battletag2 = 'test#4321'
+      region = 'EU'
+
+      bot = Cinch::Bot.new
+      bot.loggers.level = :fatal
+
+      db = SQLite3::Database.new ':memory:'
+
+      sut = Battletags.new(bot, db)
+
+      message = OpenStruct.new
+      message.user = OpenStruct.new
+      message.user.nick = username
+      message.channel = MiniTest::Mock.new
+
+      message.channel.expect :send, nil, ['Battletag added']
+      sut.addbt(message, battletag, region)
+
+      message.channel.expect :send, nil, ['Battletag updated']
+      sut.addbt(message, battletag2, region)
+
+      message.verify
+      assert_equal(
+        [battletag2, region],
+        db.execute('SELECT battletag, region FROM Battletags WHERE nick=?', [username]).first
+      )
+
+      db.execute('DELETE FROM Battletags')
     end
   end
 end
