@@ -22,6 +22,8 @@ module Hotsbot::Commands
       summary: 'Saves your BattleTag'
     )
 
+    command :removebt
+
     def initialize(bot, db=nil)
       super bot
 
@@ -57,17 +59,23 @@ module Hotsbot::Commands
 
     def addbt(m, battletag=nil, region=nil)
       if battletag.nil? or region.nil?
-        m.channel.send 'A battletag and region are required, example: !addbt Username#123 EU'
+        m.channel.send 'A BattleTag and region are required, example: !addbt Username#123 EU'
       else
         result = load_battletag(m.user.nick)
         if result.empty?
           @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [m.user.nick, battletag, region])
-          m.channel.send 'Battletag added'
+          m.channel.send 'BattleTag added'
         else
           @db.execute('UPDATE Battletags SET battletag = ?, region = ? WHERE nick = ?', [battletag, region, m.user.nick])
-          m.channel.send 'Battletag updated'
+          m.channel.send 'BattleTag updated'
         end
       end
+    end
+
+    def removebt(m)
+      @db.execute('DELETE FROM Battletags WHERE nick=?', [m.user.nick])
+
+      m.channel.send 'BattleTag removed'
     end
   end
 end

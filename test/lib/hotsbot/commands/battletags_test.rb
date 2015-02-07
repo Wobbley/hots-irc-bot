@@ -87,7 +87,7 @@ module Hotsbot::Commands
       message.user = OpenStruct.new
       message.user.nick = username
       message.channel = MiniTest::Mock.new
-      message.channel.expect :send, nil, ['Battletag added']
+      message.channel.expect :send, nil, ['BattleTag added']
 
       sut.addbt(message, battletag, region)
 
@@ -103,7 +103,7 @@ module Hotsbot::Commands
     def test_addbt_send_a_message_if_no_parameters_are_given
       message = OpenStruct.new
       message.channel = MiniTest::Mock.new
-      message.channel.expect :send, nil, ['A battletag and region are required, example: !addbt Username#123 EU']
+      message.channel.expect :send, nil, ['A BattleTag and region are required, example: !addbt Username#123 EU']
 
       @SUT.addbt(message)
 
@@ -128,10 +128,10 @@ module Hotsbot::Commands
       message.user.nick = username
       message.channel = MiniTest::Mock.new
 
-      message.channel.expect :send, nil, ['Battletag added']
+      message.channel.expect :send, nil, ['BattleTag added']
       sut.addbt(message, battletag, region)
 
-      message.channel.expect :send, nil, ['Battletag updated']
+      message.channel.expect :send, nil, ['BattleTag updated']
       sut.addbt(message, battletag2, region)
 
       message.verify
@@ -141,6 +141,23 @@ module Hotsbot::Commands
       )
 
       db.execute('DELETE FROM Battletags')
+    end
+
+    def test_can_remove_a_battletag
+      username = 'foo'
+
+      message = OpenStruct.new
+      message.user = OpenStruct.new
+      message.user.nick = username
+      message.channel = MiniTest::Mock.new
+      message.channel.expect :send, nil, ['BattleTag removed']
+
+      @db.expect :execute, nil, ['DELETE FROM Battletags WHERE nick=?', [username]]
+
+      @SUT.removebt(message)
+
+      message.verify
+      @db.verify
     end
   end
 end
