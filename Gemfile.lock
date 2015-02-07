@@ -41,4 +41,5 @@ DEPENDENCIES
   coveralls
   minitest
   rake
+  simplecov
   sqlite3
