@@ -14,6 +14,6 @@ desc 'Run hotsbot'
 task :run do
   Hotsbot::Configuration.load(File.dirname(__FILE__) + '/config.yml')
 
-  bot = Hotsbot::BotFactory.from_configuration
+  bot = Hotsbot::BotFactory.from_configuration(Configuration.config)
   bot.start
 end

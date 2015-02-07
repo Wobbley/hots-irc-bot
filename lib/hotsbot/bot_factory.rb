@@ -7,8 +7,7 @@ require File.dirname(__FILE__) + '/commands/battletags'
 
 module Hotsbot
   class BotFactory
-    def self.from_configuration
-      configuration = Configuration.config
+    def self.from_configuration(configuration)
       guard_against_missing_configuration(configuration)
 
       Cinch::Bot.new do
