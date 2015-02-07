@@ -1,10 +1,11 @@
 require File.dirname(__FILE__) + '/../../helper'
 require File.dirname(__FILE__) + '/../../../lib/hotsbot/bot_factory'
+require File.dirname(__FILE__) + '/../../../lib/utils/configuration'
 
 module Hotsbot
   class BotFactoryTest < TestCase
     def setup
-      Configuration.load(File.dirname(__FILE__) + '/../../fixtures/test_config.yml')
+      Hotsbot::Configuration.load(File.dirname(__FILE__) + '/../../fixtures/test_config.yml')
     end
 
     def test_create_bot_from_a_file
@@ -16,8 +17,8 @@ module Hotsbot
     end
 
     def test_raise_error_if_irc_configuration_is_missing
-      exception = assert_raises Exception do
-        Configuration.config.clear
+      exception = assert_raises RuntimeError do
+        Hotsbot::Configuration.config.clear
 
         BotFactory.from_configuration
       end
@@ -25,8 +26,8 @@ module Hotsbot
     end
 
     def test_raise_error_if_server_is_missing
-      exception = assert_raises Exception do
-        Configuration.config.irc.server = nil
+      exception = assert_raises RuntimeError do
+        Hotsbot::Configuration.config.irc.server = nil
 
         BotFactory.from_configuration
       end
@@ -34,8 +35,8 @@ module Hotsbot
     end
 
     def test_raise_error_if_channels_is_missing
-      exception = assert_raises Exception do
-        Configuration.config.irc.channels = nil
+      exception = assert_raises RuntimeError do
+        Hotsbot::Configuration.config.irc.channels = nil
 
         BotFactory.from_configuration
       end
@@ -43,8 +44,8 @@ module Hotsbot
     end
 
     def test_raise_error_if_nick_is_missing
-      exception = assert_raises Exception do
-        Configuration.config.irc.nick = nil
+      exception = assert_raises RuntimeError do
+        Hotsbot::Configuration.config.irc.nick = nil
 
         BotFactory.from_configuration
       end

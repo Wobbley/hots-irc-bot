@@ -27,10 +27,16 @@ module Hotsbot
 
     private
     def self.guard_against_missing_configuration(configuration)
-      raise Exception, 'IRC configuration is required' if configuration.irc.nil?
-      raise Exception, 'Server is required' if configuration.irc.server.nil?
-      raise Exception, 'Channels list is required' if configuration.irc.channels.nil?
-      raise Exception, 'Nick is required' if configuration.irc.nick.nil?
+      raise 'IRC configuration is required' if configuration.irc.nil?
+
+      required_configurations = {
+        server: 'Server is required',
+        channels: 'Channels list is required',
+        nick: 'Nick is required'
+      }
+      required_configurations.each_pair do |configuration_key, error_message|
+        raise error_message if configuration.irc[configuration_key].nil?
+      end
     end
   end
 end
