@@ -58,21 +58,33 @@ module Hotsbot::Commands
     end
 
     def addbt(m, battletag=nil, region=nil)
-      if bad_addbt_input(battletag, region)
-        if !is_addbt_input_nil(battletag, region) and bad_addbt_input_format(battletag, region)
-          m.channel.send 'Bad BattleTag format, example: !addbt Username#1234 EU'
-        else
-          m.channel.send 'A BattleTag and region are required, example: !addbt Username#1234 EU'
-        end
+      error = has_bad_input(battletag, region)
+      if error
+        m.channel.send error
       else
-        result = load_battletag(m.user.nick)
-        if result.empty?
-          @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [m.user.nick, battletag, region])
-          m.channel.send 'BattleTag added'
-        else
-          @db.execute('UPDATE Battletags SET battletag = ?, region = ? WHERE nick = ?', [battletag, region, m.user.nick])
-          m.channel.send 'BattleTag updated'
-        end
+        message = inject_battletag_to_database(m.user.nick, battletag, region)
+        m.channel.send message
+      end
+    end
+
+    def inject_battletag_to_database(nick, battletag, region)
+      result = load_battletag(nick)
+      if result.empty?
+        @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [nick, battletag, region])
+        'BattleTag added'
+      else
+        @db.execute('UPDATE Battletags SET battletag = ?, region = ? WHERE nick = ?', [battletag, region, nick])
+        'BattleTag updated'
+      end
+    end
+
+    def has_bad_input(battletag, region)
+      if !is_addbt_input_nil(battletag, region) and bad_addbt_input_format(battletag, region)
+        'Bad BattleTag format, example: !addbt Username#1234 EU'
+      elsif is_addbt_input_nil(battletag, region)
+        'A BattleTag and region are required, example: !addbt Username#1234 EU'
+      else
+        false
       end
     end
 
