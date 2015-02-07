@@ -12,8 +12,8 @@ Rake::Task
 
 desc 'Run hotsbot'
 task :run do
-  Hotsbot::Configuration.load(File.dirname(__FILE__) + '/config.yml')
+  Hotsbot::Utils::Configuration.load(File.dirname(__FILE__) + '/config.yml')
 
-  bot = Hotsbot::BotFactory.from_configuration(Configuration.config)
+  bot = Hotsbot::BotFactory.from_configuration(Hotsbot::Utils::Configuration.config)
   bot.start
 end
