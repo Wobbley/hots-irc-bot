@@ -88,10 +88,6 @@ module Hotsbot::Commands
       end
     end
 
-    def bad_addbt_input(battletag, region)
-      is_addbt_input_nil(battletag, region) or bad_addbt_input_format(battletag, region)
-    end
-
     def is_addbt_input_nil(battletag, region)
       battletag.nil? or region.nil?
     end
