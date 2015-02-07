@@ -22,7 +22,7 @@ module Hotsbot::Commands
 
       db = MiniTest::Mock.new
       db.expect :nil?, false
-      db.expect :execute, nil, ['CREATE TABLE IF NOT EXISTS BattleTag (irc text, bnet text)']
+      db.expect :execute, nil, ['CREATE TABLE IF NOT EXISTS Battletags (nick text, battletag text)']
 
       Battletags.new(bot, db)
 
@@ -33,7 +33,7 @@ module Hotsbot::Commands
       battletag = 'foo#1234'
       username = 'foo'
 
-      @db.expect :execute, [[battletag]], ['SELECT bnet FROM BattleTag WHERE irc=? COLLATE NOCASE', [username]]
+      @db.expect :execute, [[battletag]], ['SELECT battletag FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
 
       message = OpenStruct.new
       message.channel = MiniTest::Mock.new
@@ -47,7 +47,7 @@ module Hotsbot::Commands
 
     def test_if_no_battletag_is_found_a_message_says_so
       username = 'foo'
-      @db.expect :execute, [], ['SELECT bnet FROM BattleTag WHERE irc=? COLLATE NOCASE', [username]]
+      @db.expect :execute, [], ['SELECT battletag FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
 
       message = OpenStruct.new
       message.channel = MiniTest::Mock.new
