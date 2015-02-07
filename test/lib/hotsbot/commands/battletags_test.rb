@@ -69,5 +69,31 @@ module Hotsbot::Commands
       @db.verify
       message.verify
     end
+
+    def test_can_add_a_battletag
+      username = 'foo'
+      battletag = 'test#1234'
+
+      bot = Cinch::Bot.new
+      bot.loggers.level = :fatal
+
+      db = SQLite3::Database.new ':memory:'
+
+      sut = Battletags.new(bot, db)
+
+      message = OpenStruct.new
+      message.user = OpenStruct.new
+      message.user.nick = username
+      message.channel = MiniTest::Mock.new
+      message.channel.expect :send, nil, ['Battletag added']
+
+      sut.addbt(message, battletag)
+
+      message.verify
+      assert_equal(
+        battletag,
+        db.execute('SELECT battletag FROM Battletags WHERE nick=?', [username]).first.first
+      )
+    end
   end
 end

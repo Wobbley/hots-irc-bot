@@ -15,6 +15,11 @@ module Hotsbot::Commands
       summary: 'Print the BattleTag for the entered name'
     )
 
+    command(
+      :addbt,
+      { battletag: %r{^[a-zA-Z0-9]+[#]\d{4,5}$}, region: %r{[a-zA-Z]{2}} }
+    )
+
     def initialize(bot, db=nil)
       super bot
 
@@ -40,6 +45,12 @@ module Hotsbot::Commands
           m.channel.send "#{username}'s BattleTag is #{battletag}"
         end
       end
+    end
+
+    def addbt(m, battletag)
+      @db.execute('INSERT INTO Battletags VALUES (?, ?)', [m.user.nick, battletag])
+
+      m.channel.send 'Battletag added'
     end
   end
 end
