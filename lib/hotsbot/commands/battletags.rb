@@ -29,26 +29,28 @@ module Hotsbot::Commands
         @db = db
       end
 
-      @db.execute 'CREATE TABLE IF NOT EXISTS Battletags (nick text, battletag text)'
+      @db.execute 'CREATE TABLE IF NOT EXISTS Battletags (nick text, battletag text, region text)'
     end
 
     def getbt(m, username=nil)
       if username.nil?
         m.user.send 'A irc username is required, example: "!getbt Ravilan"'
       else
-        result = @db.execute('SELECT battletag FROM Battletags WHERE nick=? COLLATE NOCASE', [username])
+        result = @db.execute('SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username])
 
         if result.empty?
           m.channel.send "No BattleTag found for #{username}"
         else
           battletag = result.first.first
-          m.channel.send "#{username}'s BattleTag is #{battletag}"
+          region = result.first[1]
+
+          m.channel.send "#{username}'s BattleTag is [#{region}]#{battletag}"
         end
       end
     end
 
-    def addbt(m, battletag)
-      @db.execute('INSERT INTO Battletags VALUES (?, ?)', [m.user.nick, battletag])
+    def addbt(m, battletag, region)
+      @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [m.user.nick, battletag, region])
 
       m.channel.send 'Battletag added'
     end

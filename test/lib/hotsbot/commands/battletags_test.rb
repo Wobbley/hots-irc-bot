@@ -22,7 +22,7 @@ module Hotsbot::Commands
 
       db = MiniTest::Mock.new
       db.expect :nil?, false
-      db.expect :execute, nil, ['CREATE TABLE IF NOT EXISTS Battletags (nick text, battletag text)']
+      db.expect :execute, nil, ['CREATE TABLE IF NOT EXISTS Battletags (nick text, battletag text, region text)']
 
       Battletags.new(bot, db)
 
@@ -32,12 +32,13 @@ module Hotsbot::Commands
     def test_can_get_battletag
       battletag = 'foo#1234'
       username = 'foo'
+      region = 'EU'
 
-      @db.expect :execute, [[battletag]], ['SELECT battletag FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
+      @db.expect :execute, [[battletag, region]], ['SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
 
       message = OpenStruct.new
       message.channel = MiniTest::Mock.new
-      message.channel.expect :send, nil, ["#{username}'s BattleTag is #{battletag}"]
+      message.channel.expect :send, nil, ["#{username}'s BattleTag is [#{region}]#{battletag}"]
 
       @SUT.getbt(message, username)
 
@@ -47,7 +48,7 @@ module Hotsbot::Commands
 
     def test_if_no_battletag_is_found_a_message_says_so
       username = 'foo'
-      @db.expect :execute, [], ['SELECT battletag FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
+      @db.expect :execute, [], ['SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
 
       message = OpenStruct.new
       message.channel = MiniTest::Mock.new
@@ -73,6 +74,7 @@ module Hotsbot::Commands
     def test_can_add_a_battletag
       username = 'foo'
       battletag = 'test#1234'
+      region = 'EU'
 
       bot = Cinch::Bot.new
       bot.loggers.level = :fatal
@@ -87,12 +89,12 @@ module Hotsbot::Commands
       message.channel = MiniTest::Mock.new
       message.channel.expect :send, nil, ['Battletag added']
 
-      sut.addbt(message, battletag)
+      sut.addbt(message, battletag, region)
 
       message.verify
       assert_equal(
-        battletag,
-        db.execute('SELECT battletag FROM Battletags WHERE nick=?', [username]).first.first
+        [battletag, region],
+        db.execute('SELECT battletag, region FROM Battletags WHERE nick=?', [username]).first
       )
     end
   end
