@@ -3,6 +3,7 @@ require 'cinch'
 require 'yaml'
 
 require File.dirname(__FILE__) + '/commands/tips'
+require File.dirname(__FILE__) + '/commands/battletags'
 
 module Hotsbot
   class BotFactory
@@ -15,7 +16,11 @@ module Hotsbot
           c.server = configuration.irc.server
           c.channels = configuration.irc.channels
           c.nick = configuration.irc.nick
-          c.plugins.plugins = [Tips, Cinch::Commands::Help]
+          c.plugins.plugins = [
+            Commands::Tips,
+            Commands::Battletags,
+            Cinch::Commands::Help
+          ]
         end
       end
     end

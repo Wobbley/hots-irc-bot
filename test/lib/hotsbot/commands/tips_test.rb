@@ -4,8 +4,8 @@ require 'minitest/mock'
 require File.dirname(__FILE__) + '/../../../helper'
 require File.dirname(__FILE__) + '/../../../../lib/hotsbot/commands/tips'
 
-module Hotsbot
-  class TipsTest < TestCase
+module Hotsbot::Commands
+  class TipsTest < Hotsbot::TestCase
     def setup
       bot = Cinch::Bot.new
       bot.loggers.level = :fatal

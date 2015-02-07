@@ -54,7 +54,7 @@ module Hotsbot
     def test_plugins_are_loaded
       bot = BotFactory.from_configuration
 
-      assert_equal [Tips, Cinch::Commands::Help], bot.config.plugins.plugins
+      assert_equal [Commands::Tips, Commands::Battletags, Cinch::Commands::Help], bot.config.plugins.plugins
     end
   end
 end

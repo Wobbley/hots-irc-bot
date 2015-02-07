@@ -2,7 +2,7 @@ require 'rubygems'
 require 'cinch'
 require 'cinch/commands'
 
-module Hotsbot
+module Hotsbot::Commands
   class Tips
     include Cinch::Plugin
     include Cinch::Commands
