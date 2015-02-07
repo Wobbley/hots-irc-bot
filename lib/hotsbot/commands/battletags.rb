@@ -58,8 +58,12 @@ module Hotsbot::Commands
     end
 
     def addbt(m, battletag=nil, region=nil)
-      if battletag.nil? or region.nil?
-        m.channel.send 'A BattleTag and region are required, example: !addbt Username#123 EU'
+      if bad_addbt_input(battletag, region)
+        if !is_addbt_input_nil(battletag, region) and bad_addbt_input_format(battletag, region)
+          m.channel.send 'Bad BattleTag format, example: !addbt Username#1234 EU'
+        else
+          m.channel.send 'A BattleTag and region are required, example: !addbt Username#1234 EU'
+        end
       else
         result = load_battletag(m.user.nick)
         if result.empty?
@@ -70,6 +74,18 @@ module Hotsbot::Commands
           m.channel.send 'BattleTag updated'
         end
       end
+    end
+
+    def bad_addbt_input(battletag, region)
+      is_addbt_input_nil(battletag, region) or bad_addbt_input_format(battletag, region)
+    end
+
+    def is_addbt_input_nil(battletag, region)
+      battletag.nil? or region.nil?
+    end
+
+    def bad_addbt_input_format(battletag, region)
+      battletag !~ %r{^\w+[#]\d{4,5}$} or region !~ %r{[A-Z]{2}}
     end
 
     def removebt(m)

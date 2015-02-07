@@ -103,7 +103,7 @@ module Hotsbot::Commands
     def test_addbt_send_a_message_if_no_parameters_are_given
       message = OpenStruct.new
       message.channel = MiniTest::Mock.new
-      message.channel.expect :send, nil, ['A BattleTag and region are required, example: !addbt Username#123 EU']
+      message.channel.expect :send, nil, ['A BattleTag and region are required, example: !addbt Username#1234 EU']
 
       @SUT.addbt(message)
 
@@ -158,6 +158,14 @@ module Hotsbot::Commands
 
       message.verify
       @db.verify
+    end
+
+    def test_a_battletag_should_have_the_right_format
+      message = OpenStruct.new
+      message.channel = MiniTest::Mock.new
+      message.channel.expect :send, nil, ['Bad BattleTag format, example: !addbt Username#1234 EU']
+
+      @SUT.addbt(message, 'foo#12', 'EU')
     end
   end
 end
