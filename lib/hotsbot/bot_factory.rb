@@ -18,6 +18,7 @@ module Hotsbot
           c.plugins.plugins = [
             Commands::Tips,
             Commands::Battletags,
+            Commands::Bug,
             Cinch::Commands::Help
           ]
         end
