@@ -19,8 +19,8 @@ module Hotsbot
           c.channels = configuration.irc.channels
           c.nick = configuration.irc.nick
           c.plugins.plugins = [
-            Commands::Tips,
             Commands::Battletags,
+            Commands::Tips,
             Commands::Mumble,
             Commands::Ts,
             Commands::Bug,
