@@ -44,6 +44,19 @@ module Hotsbot
 
         message.user.verify
       end
+
+      def test_if_no_command_found_say_so
+        bot = Cinch::Bot.new
+        bot.loggers.level = :fatal
+
+        message = OpenStruct.new
+        message.user = MiniTest::Mock.new
+        message.user.expect :send, nil, ['help: Unknown command "help"']
+
+        Help.new(bot).help(message, 'help')
+
+        message.user.verify
+      end
     end
   end
 end
