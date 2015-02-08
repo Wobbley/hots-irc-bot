@@ -6,7 +6,7 @@ gem 'cinch-commands'
 gem 'app_conf'
 gem 'sqlite3'
 gem 'json'
-gem 'thin'
+gem 'nokogiri'
 
 gem 'rake', group: :test
 gem 'minitest', group: :test
