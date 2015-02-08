@@ -4,6 +4,9 @@ require 'yaml'
 
 require File.dirname(__FILE__) + '/commands/tips'
 require File.dirname(__FILE__) + '/commands/battletags'
+require File.dirname(__FILE__) + '/commands/mumble'
+require File.dirname(__FILE__) + '/commands/ts'
+require File.dirname(__FILE__) + '/commands/bug'
 
 module Hotsbot
   class BotFactory
