@@ -22,6 +22,8 @@ module Hotsbot
           c.server = configuration.irc.server
           c.channels = configuration.irc.channels
           c.nick = configuration.irc.nick
+          c.messages_per_second = 1
+          c.server_queue_size = 20
           c.plugins.plugins = [
             Commands::Battletags,
             Commands::Rating,
