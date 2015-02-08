@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'cinch'
+require 'cinch/plugins/identify'
 require 'yaml'
 
 require File.dirname(__FILE__) + '/commands/tips'
@@ -30,6 +31,15 @@ module Hotsbot
             Commands::Bug,
             Cinch::Commands::Help
           ]
+
+          unless configuration.irc.password.nil?
+            c.plugins.plugins.push Cinch::Plugins::Identify
+            c.plugins.options[Cinch::Plugins::Identify] = {
+              username: configuration.irc.nick,
+              password: configuration.irc.password,
+              type: :quakenet,
+            }
+          end
         end
       end
     end

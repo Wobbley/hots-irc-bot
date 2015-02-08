@@ -64,7 +64,8 @@ module Hotsbot
           Commands::Mumble,
           Commands::Ts,
           Commands::Bug,
-          Cinch::Commands::Help
+          Cinch::Commands::Help,
+          Cinch::Plugins::Identify
         ],
         bot.config.plugins.plugins
       )

@@ -4,3 +4,4 @@ irc:
     - "#foo"
     - "#bar"
   nick: foobot
+  password: password

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'cinch'
 gem 'cinch-commands'
+gem 'cinch-identify'
 
 gem 'app_conf'
 gem 'sqlite3'

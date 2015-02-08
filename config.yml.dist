@@ -3,3 +3,4 @@ irc:
   channels:
     - "#foo"
   nick: botname
+  password: password # optional

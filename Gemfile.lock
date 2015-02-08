@@ -5,6 +5,8 @@ GEM
     cinch (2.2.3)
     cinch-commands (0.1.0)
       cinch (~> 2.0)
+    cinch-identify (1.6.0)
+      cinch (~> 2.0)
     coveralls (0.7.9)
       multi_json (~> 1.10)
       rest-client (~> 1.7)
@@ -42,6 +44,7 @@ DEPENDENCIES
   app_conf
   cinch
   cinch-commands
+  cinch-identify
   coveralls
   json
   minitest
