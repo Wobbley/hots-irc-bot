@@ -39,7 +39,7 @@ module Hotsbot
 
       def getbt(m, username=nil)
         if username.nil?
-          m.user.send 'A IRC username is required, example: !getbt Username'
+          m.channel.send 'A IRC username is required, example: !getbt Username'
         else
           result = load_battletag(username)
 

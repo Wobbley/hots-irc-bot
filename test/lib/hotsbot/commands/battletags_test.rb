@@ -63,8 +63,8 @@ module Hotsbot
 
       def test_if_no_username_is_given_help_message_is_sent
         message = OpenStruct.new
-        message.user = MiniTest::Mock.new
-        message.user.expect :send, nil, ['A IRC username is required, example: !getbt Username']
+        message.channel = MiniTest::Mock.new
+        message.channel.expect :send, nil, ['A IRC username is required, example: !getbt Username']
 
         @SUT.getbt(message)
 
