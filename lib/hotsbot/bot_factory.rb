@@ -7,6 +7,7 @@ require File.dirname(__FILE__) + '/commands/battletags'
 require File.dirname(__FILE__) + '/commands/mumble'
 require File.dirname(__FILE__) + '/commands/ts'
 require File.dirname(__FILE__) + '/commands/bug'
+require File.dirname(__FILE__) + '/commands/tierlist'
 
 module Hotsbot
   class BotFactory
@@ -20,6 +21,7 @@ module Hotsbot
           c.nick = configuration.irc.nick
           c.plugins.plugins = [
             Commands::Battletags,
+            Commands::Tierlist,
             Commands::Tips,
             Commands::Mumble,
             Commands::Ts,

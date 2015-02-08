@@ -55,7 +55,18 @@ module Hotsbot
     def test_plugins_are_loaded
       bot = BotFactory.from_configuration(Hotsbot::Utils::Configuration.config)
 
-      assert_equal [Commands::Battletags, Commands::Tips, Commands::Mumble, Commands::Ts, Commands::Bug, Cinch::Commands::Help], bot.config.plugins.plugins
+      assert_equal(
+        [
+          Commands::Battletags,
+          Commands::Tierlist,
+          Commands::Tips,
+          Commands::Mumble,
+          Commands::Ts,
+          Commands::Bug,
+          Cinch::Commands::Help
+        ],
+        bot.config.plugins.plugins
+      )
     end
   end
 end
