@@ -15,6 +15,21 @@
 * Install dependencies with [bundler](http://bundler.io/) (`bundle install`)
 * Run the bot: `bundle exec rake run`
 
+## Available bot commands
+
+* getbt USERNAME - Print the BattleTag for the entered name
+* addbt BATTLETAG REGION - Saves your BattleTag
+* removebt - Remove your BattleTag from the database
+* rotation - Prints the current free hero rotation
+* tierlist - Replies with the url for the Zuna tierlist
+* tips - Links the tips section
+* tips USERNAME - Links the tips section and highlights user
+* mumble - Prints server info of the Reddit Mumble
+* ts - Prints server info of the Reddit Teamspeak
+* bug - Submit an issue the bot's bug tracker
+* help COMMAND - Displays help information for the COMMAND
+* help - Lists available commands
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
