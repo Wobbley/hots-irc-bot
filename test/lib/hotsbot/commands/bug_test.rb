@@ -7,7 +7,7 @@ require File.dirname(__FILE__) + '/../../../../lib/hotsbot/commands/bug'
 module Hotsbot
   module Commands
     class BugTest < Hotsbot::TestCase
-      def test_send_tips
+      def test_send_bug
         bot = Cinch::Bot.new
         bot.loggers.level = :fatal
 
