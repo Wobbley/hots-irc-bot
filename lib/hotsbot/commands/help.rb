@@ -28,7 +28,7 @@ module Hotsbot
           if found.empty?
             m.user.send "help: Unknown command #{command.dump}"
           else
-            found.each { |cmd| m.reply cmd.usage }
+            found.each { |cmd| m.user.send cmd.usage }
 
             m.user.send ''
             m.user.send found.first.description
