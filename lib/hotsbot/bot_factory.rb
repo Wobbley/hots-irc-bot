@@ -11,6 +11,7 @@ require File.dirname(__FILE__) + '/commands/bug'
 require File.dirname(__FILE__) + '/commands/tierlist'
 require File.dirname(__FILE__) + '/commands/rotation'
 require File.dirname(__FILE__) + '/commands/rating'
+require File.dirname(__FILE__) + '/commands/help'
 
 module Hotsbot
   class BotFactory
@@ -33,7 +34,7 @@ module Hotsbot
             Commands::Mumble,
             Commands::Ts,
             Commands::Bug,
-            Cinch::Commands::Help
+            Commands::Help
           ]
 
           unless configuration.irc.password.nil?
