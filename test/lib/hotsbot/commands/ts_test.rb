@@ -14,12 +14,12 @@ module Hotsbot
         sut = Ts.new(bot)
 
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ["The Reddit community TS3 server can be found here: #{Ts::URL}"]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ["The Reddit community TS3 server can be found here: #{Ts::URL}"]
 
         sut.ts(message)
 
-        message.channel.verify
+        message.target.verify
       end
     end
   end

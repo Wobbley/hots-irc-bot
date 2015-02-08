@@ -13,7 +13,7 @@ module Hotsbot
       URL = 'http://heroesofthestorm.github.io/zuna-tierlist'
 
       def tierlist(m)
-        m.channel.send URL
+        m.target.send URL
       end
     end
   end

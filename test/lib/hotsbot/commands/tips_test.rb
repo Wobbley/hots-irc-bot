@@ -16,23 +16,23 @@ module Hotsbot
 
       def test_send_tips
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ["Tips can be found here: #{Tips::URL}"]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ["Tips can be found here: #{Tips::URL}"]
 
         @SUT.tips(message)
 
-        message.channel.verify
+        message.target.verify
       end
 
       def test_send_tips_to_user
         username = 'foo'
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ["You can find some great tips here, #{username}: #{Tips::URL}"]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ["You can find some great tips here, #{username}: #{Tips::URL}"]
 
         @SUT.tips(message, username)
 
-        message.channel.verify
+        message.target.verify
       end
     end
   end

@@ -14,12 +14,12 @@ module Hotsbot
         sut = Tierlist.new(bot)
 
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, [Tierlist::URL]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, [Tierlist::URL]
 
         sut.tierlist(message)
 
-        message.channel.verify
+        message.target.verify
       end
     end
   end

@@ -13,7 +13,7 @@ module Hotsbot
       URL = 'ts3.oda-h.com'
 
       def mumble(m)
-        m.channel.send "The Reddit community mumble server can be found here: #{URL}"
+        m.target.send "The Reddit community mumble server can be found here: #{URL}"
       end
     end
   end

@@ -13,7 +13,7 @@ module Hotsbot
       URL = 'https://github.com/chadrien/hots-irc-bot/issues'
 
       def bug(m)
-        m.channel.send "You can submit a bug by creating an issue at this URL: #{URL}"
+        m.target.send "You can submit a bug by creating an issue at this URL: #{URL}"
       end
     end
   end

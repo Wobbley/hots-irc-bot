@@ -14,12 +14,12 @@ module Hotsbot
         sut = Mumble.new(bot)
 
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ["The Reddit community mumble server can be found here: #{Mumble::URL}"]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ["The Reddit community mumble server can be found here: #{Mumble::URL}"]
 
         sut.mumble(message)
 
-        message.channel.verify
+        message.target.verify
       end
     end
   end

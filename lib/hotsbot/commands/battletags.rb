@@ -39,17 +39,17 @@ module Hotsbot
 
       def getbt(m, username=nil)
         if username.nil?
-          m.channel.send 'A IRC username is required, example: !getbt Username'
+          m.target.send 'A IRC username is required, example: !getbt Username'
         else
           result = load_battletag(username)
 
           if result.empty?
-            m.channel.send "No BattleTag found for #{username}"
+            m.target.send "No BattleTag found for #{username}"
           else
             battletag = result.first.first
             region = result.first[1]
 
-            m.channel.send "#{username}'s BattleTag is [#{region}]#{battletag}"
+            m.target.send "#{username}'s BattleTag is [#{region}]#{battletag}"
           end
         end
       end
@@ -61,10 +61,10 @@ module Hotsbot
       def addbt(m, battletag=nil, region=nil)
         error = has_bad_input(battletag, region)
         if error
-          m.channel.send error
+          m.target.send error
         else
           message = inject_battletag_to_database(m.user.nick, battletag, region)
-          m.channel.send message
+          m.target.send message
         end
       end
 
@@ -100,7 +100,7 @@ module Hotsbot
       def removebt(m)
         @db.execute('DELETE FROM Battletags WHERE nick=?', [m.user.nick])
 
-        m.channel.send 'BattleTag removed'
+        m.target.send 'BattleTag removed'
       end
     end
   end

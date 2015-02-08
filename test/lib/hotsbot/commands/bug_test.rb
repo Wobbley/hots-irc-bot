@@ -14,12 +14,12 @@ module Hotsbot
         sut = Bug.new(bot)
 
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ["You can submit a bug by creating an issue at this URL: #{Bug::URL}"]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ["You can submit a bug by creating an issue at this URL: #{Bug::URL}"]
 
         sut.bug(message)
 
-        message.channel.verify
+        message.target.verify
       end
     end
   end

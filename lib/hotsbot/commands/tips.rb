@@ -20,7 +20,7 @@ module Hotsbot
           message = "You can find some great tips here, #{username}: #{URL}"
         end
 
-        m.channel.send message
+        m.target.send message
       end
     end
   end

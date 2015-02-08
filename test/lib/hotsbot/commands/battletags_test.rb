@@ -38,13 +38,13 @@ module Hotsbot
         @db.expect :execute, [[battletag, region]], ['SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
 
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ["#{username}'s BattleTag is [#{region}]#{battletag}"]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ["#{username}'s BattleTag is [#{region}]#{battletag}"]
 
         @SUT.getbt(message, username)
 
         @db.verify
-        message.verify
+        message.target.verify
       end
 
       def test_if_no_battletag_is_found_a_message_says_so
@@ -52,24 +52,24 @@ module Hotsbot
         @db.expect :execute, [], ['SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username]]
 
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ["No BattleTag found for #{username}"]
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ["No BattleTag found for #{username}"]
 
         @SUT.getbt(message, username)
 
         @db.verify
-        message.verify
+        message.target.verify
       end
 
       def test_if_no_username_is_given_help_message_is_sent
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ['A IRC username is required, example: !getbt Username']
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['A IRC username is required, example: !getbt Username']
 
         @SUT.getbt(message)
 
         @db.verify
-        message.verify
+        message.target.verify
       end
 
       def test_can_add_a_battletag
@@ -87,12 +87,12 @@ module Hotsbot
         message = OpenStruct.new
         message.user = OpenStruct.new
         message.user.nick = username
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ['BattleTag added']
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['BattleTag added']
 
         sut.addbt(message, battletag, region)
 
-        message.verify
+        message.target.verify
         assert_equal(
           [battletag, region],
           db.execute('SELECT battletag, region FROM Battletags WHERE nick=?', [username]).first
@@ -103,12 +103,12 @@ module Hotsbot
 
       def test_addbt_send_a_message_if_no_parameters_are_given
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ['A BattleTag and region are required, example: !addbt Username#1234 EU']
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['A BattleTag and region are required, example: !addbt Username#1234 EU']
 
         @SUT.addbt(message)
 
-        message.verify
+        message.target.verify
       end
 
       def test_addbt_update_if_entry_already_exists
@@ -127,15 +127,15 @@ module Hotsbot
         message = OpenStruct.new
         message.user = OpenStruct.new
         message.user.nick = username
-        message.channel = MiniTest::Mock.new
+        message.target = MiniTest::Mock.new
 
-        message.channel.expect :send, nil, ['BattleTag added']
+        message.target.expect :send, nil, ['BattleTag added']
         sut.addbt(message, battletag, region)
 
-        message.channel.expect :send, nil, ['BattleTag updated']
+        message.target.expect :send, nil, ['BattleTag updated']
         sut.addbt(message, battletag2, region)
 
-        message.verify
+        message.target.verify
         assert_equal(
           [battletag2, region],
           db.execute('SELECT battletag, region FROM Battletags WHERE nick=?', [username]).first
@@ -150,21 +150,21 @@ module Hotsbot
         message = OpenStruct.new
         message.user = OpenStruct.new
         message.user.nick = username
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ['BattleTag removed']
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['BattleTag removed']
 
         @db.expect :execute, nil, ['DELETE FROM Battletags WHERE nick=?', [username]]
 
         @SUT.removebt(message)
 
-        message.verify
+        message.target.verify
         @db.verify
       end
 
       def test_a_battletag_should_have_the_right_format
         message = OpenStruct.new
-        message.channel = MiniTest::Mock.new
-        message.channel.expect :send, nil, ['Bad BattleTag format, example: !addbt Username#1234 EU']
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['Bad BattleTag format, example: !addbt Username#1234 EU']
 
         @SUT.addbt(message, 'foo#12', 'EU')
       end
