@@ -58,6 +58,7 @@ module Hotsbot
       assert_equal(
         [
           Commands::Battletags,
+          Commands::Rating,
           Commands::Rotation,
           Commands::Tierlist,
           Commands::Tips,

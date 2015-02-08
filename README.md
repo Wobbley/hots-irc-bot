@@ -20,6 +20,7 @@
 * getbt USERNAME - Print the BattleTag for the entered name
 * addbt BATTLETAG REGION - Saves your BattleTag
 * removebt - Remove your BattleTag from the database
+* rating USERNAME - Replies with a list of players with the given BattleTag from HotsLogs
 * rotation - Prints the current free hero rotation
 * tierlist - Replies with the url for the Zuna tierlist
 * tips - Links the tips section
