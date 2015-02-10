@@ -3,7 +3,7 @@
 ## Code status
 
 [![Build Status](https://travis-ci.org/chadrien/hots-irc-bot.svg?branch=master)](https://travis-ci.org/chadrien/hots-irc-bot)
-[![Coverage Status](https://coveralls.io/repos/chadrien/hots-irc-bot/badge.svg?branch=master)](https://coveralls.io/r/chadrien/hots-irc-bot?branch=master)
+[![Test Coverage](https://codeclimate.com/github/chadrien/hots-irc-bot/badges/coverage.svg)](https://codeclimate.com/github/chadrien/hots-irc-bot)
 [![Dependency Status](https://www.versioneye.com/user/projects/54da6f1cc1bbbd5f8200023d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54da6f1cc1bbbd5f8200023d)
 [![Code Climate](https://codeclimate.com/github/chadrien/hots-irc-bot/badges/gpa.svg)](https://codeclimate.com/github/chadrien/hots-irc-bot)
 
