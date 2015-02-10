@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     app_conf (0.4.2)
-    cinch (2.2.3)
+    cinch (2.2.4)
     cinch-commands (0.1.0)
       cinch (~> 2.0)
     cinch-identify (1.6.0)
