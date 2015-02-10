@@ -3,6 +3,8 @@ require 'cinch'
 require 'cinch/plugins/identify'
 require 'yaml'
 
+require File.dirname(__FILE__) + '/../cinch/message'
+
 require File.dirname(__FILE__) + '/commands/tips'
 require File.dirname(__FILE__) + '/commands/battletags'
 require File.dirname(__FILE__) + '/commands/mumble'
