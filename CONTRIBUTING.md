@@ -6,7 +6,6 @@ To help improve the bot, you can:
 
 * Submit new ideas by [creating issues](https://github.com/chadrien/hots-irc-bot/issues)
 * Submit bugs by [creating issues](https://github.com/chadrien/hots-irc-bot/issues)
-* Submit [pull requests](https://github.com/chadrien/hots-irc-bot/pulls) to the **develop** branch
 
 ## Testing
 
