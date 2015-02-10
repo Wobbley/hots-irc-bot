@@ -12,5 +12,4 @@ gem 'nokogiri'
 gem 'rake', group: :test
 gem 'minitest', group: :test
 gem 'simplecov', group: :test
-
-gem 'coveralls', require: false, group: :tools
+gem 'codeclimate-test-reporter', group: :test, require: nil
