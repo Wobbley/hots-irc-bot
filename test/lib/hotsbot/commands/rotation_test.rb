@@ -50,6 +50,21 @@ module Hotsbot
         page.verify
         message.target.verify
       end
+
+      def test_if_2_lists_are_available_display_the_right_one
+        bot = Cinch::Bot.new
+        bot.loggers.level = :fatal
+
+        page = Nokogiri::HTML(open(File.dirname(__FILE__) +'/../../../fixtures/rotation.html'))
+
+        message = OpenStruct.new
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['Free rotation list: Jaina, Malfurion, Tassadar, Tyrael, Valla, Zagara, Chen']
+
+        Rotation.new(bot, page).rotation(message)
+
+        message.target.verify
+      end
     end
   end
 end

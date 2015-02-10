@@ -25,7 +25,7 @@ module Hotsbot
       end
 
       def rotation(m)
-        heroes_list = @page.css('button.btn:not(.dropdown-toggle)').map { |e| e.text }
+        heroes_list = @page.css('button.btn:not(.dropdown-toggle)').to_a[0..6].map { |e| e.text }
 
         if heroes_list.empty?
           m.target.send "Free rotation list: #{URL}"
