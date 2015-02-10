@@ -18,7 +18,8 @@ module Hotsbot
               summary: "Lists available commands",
               description: %{
                 If no COMMAND argument is given, then all commands will be listed.
-              }
+              },
+              aliases: [:commands]
 
       # override the method to send help to the user only
       def help(m,command=nil)
@@ -28,14 +29,14 @@ module Hotsbot
           if found.empty?
             m.user.send "help: Unknown command #{command.dump}"
           else
-            found.each { |cmd| m.user.send cmd.usage }
+            found.each { |cmd| m.user.send "!#{cmd.usage}" }
 
             m.user.send ''
             m.user.send found.first.description
           end
         else
           each_command do |cmd|
-            m.user.send "#{cmd.usage} - #{cmd.summary}"
+            m.user.send "!#{cmd.usage} - #{cmd.summary}"
           end
         end
       end

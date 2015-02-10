@@ -17,8 +17,8 @@ module Hotsbot
 
         message = OpenStruct.new
         message.user = MiniTest::Mock.new
-        message.user.expect :send, nil, ['help COMMAND - Displays help information for the COMMAND']
-        message.user.expect :send, nil, ['help - Lists available commands']
+        message.user.expect :send, nil, ['!help COMMAND - Displays help information for the COMMAND']
+        message.user.expect :send, nil, ['!help - Lists available commands']
 
         Help.new(bot).help(message)
 
@@ -35,8 +35,8 @@ module Hotsbot
 
         message = OpenStruct.new
         message.user = MiniTest::Mock.new
-        message.user.expect :send, nil, ['help COMMAND']
-        message.user.expect :send, nil, ['help']
+        message.user.expect :send, nil, ['!help COMMAND']
+        message.user.expect :send, nil, ['!help']
         message.user.expect :send, nil, ['']
         message.user.expect :send, nil, ["\n                Finds the COMMAND and prints the usage and description for the\n                COMMAND.\n              "]
 
