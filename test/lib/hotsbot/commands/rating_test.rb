@@ -134,6 +134,22 @@ module Hotsbot
 
         message.target.verify
       end
+
+      def test_if_only_empty_mmr_list_say_no_mmr
+        bot = Cinch::Bot.new
+        bot.loggers.level = :fatal
+
+        page = Nokogiri::HTML(open(File.dirname(__FILE__) +'/../../../fixtures/search_with_only_empty_mmr.html'))
+
+        message = OpenStruct.new
+        message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['No rating found for this username']
+
+        Rating.new(bot).rating(message, 'Kenzi', page)
+
+        message.target.verify
+      end
+
     end
   end
 end

@@ -26,15 +26,15 @@ module Hotsbot
         end
 
         tr_elements = page.css('tbody tr')
+        tr_elements_with_mmr = tr_elements.to_a.select do |tr|
+          not tr.nil? and not tr.css('td')[4].nil? and %r{\d+}.match(tr.css('td')[4].text)
+        end
 
-        if tr_elements.empty?
+        if tr_elements_with_mmr.empty?
           m.target.send 'No rating found for this username'
           return
         end
 
-        tr_elements_with_mmr = tr_elements.to_a.select do |tr|
-          not tr.nil? and not tr.css('td')[4].nil? and %r{\d+}.match(tr.css('td')[4].text)
-        end
 
         5.times do |i|
           break if tr_elements_with_mmr[i].nil?

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://www.hotslogs.com/PlayerSearch?Name=Kenzi -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><title>
+	Heroes of the Storm (HotS): Player Search
+</title><meta name="keywords" content="Heroes of the Storm, HOTS, HOTS Logs, HOTSLogs, MMR, Ranking, Leaderboard, Replay, Replay File, Download Replay, Hero, Statistics, Matchmaking, Matchmaking Rating, Talent, Data"><meta name="viewport" content="width=device-width"><link href="https://www.hotslogs.com/favicon.ico?v=2" rel="shortcut icon" type="image/x-icon">
+        <script async="" src="./search_with_empty_mmr_files/analytics.js"></script><script src="./search_with_empty_mmr_files/Master.min.js"></script>
+        <link href="https://www.hotslogs.com/Bundles/Master.min.css" rel="stylesheet" media="screen"><link id="linkCSSTheme" href="https://www.hotslogs.com/assets/css/style-blue.css" rel="stylesheet" media="screen">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="/Scripts/html5shiv.min.js"></script>
+            <script src="/Scripts/respond.min.js"></script>
+        <![endif]-->
+
+        <script type="text/javascript">
+
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-53777913-1', 'auto');
+            ga('require', 'displayfeatures');
+            ga('send', 'pageview');
+
+            $(document).ready(function ()
+            {
+                // Set up Back to Top Link
+                $("#back-top").hide();
+                $(function ()
+                {
+                    $(window).scroll(function () { if ($(this).scrollTop() > 100) { $('#back-top').fadeIn(); } else { $('#back-top').fadeOut(); } });
+                    $('#back-top a').click(function () { $('body,html').animate({ scrollTop: 0 }, 500); return false; });
+                });
+
+                // Set Up Sign Out Menu Icon
+                $("#LoginStatus").html("<i class='fa fa-sign-out'></i>");
+
+                // Keep Focus on Player Search Menu Popup
+                $(".dropdown-menu input").click(function (e) { e.stopPropagation(); });
+
+                // Focus on Player Name Textbox when Clicking on Player Search
+                $(".playerSearchDropdown").click(function (e) { setTimeout(function () { $("#TextBoxPlayerSearch").focus(); }, 10); });
+
+                // Reveal Site after Preloaded
+                $('#status').fadeOut();
+                $('#preloader').delay(350).fadeOut('slow');
+                $('body').delay(350).css({ 'overflow': 'visible' });
+            });
+
+        </script>
+
+        <style type="text/css">
+
+            @media (min-width: 1200px)
+            {
+                .container
+                {
+                    width: 970px;
+                }
+            }
+
+            @media print
+            {
+                .no-print, .no-print *
+                {
+                    display: none !important;
+                }
+            }
+
+            .RadGrid, .btn
+            {
+               border-radius: 10px !important;
+               overflow: hidden;
+            }
+
+            .RadGrid img
+            {
+                border-radius: 3px;
+            }
+
+        </style>
+
+        <link href="./search_with_empty_mmr_files/WebResource.axd" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="./search_with_empty_mmr_files/WebResource(1).axd" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><style type="text/css"></style></head>
+
+    <body hola-ext-player="1" style="overflow: visible;">
+        <!-- Preloader -->
+        <div id="preloader" style="display: none;"><div id="status" style="display: none;">&nbsp;</div></div>
+
+        <form method="post" action="./search_with_empty_mmr_files/search_with_empty_mmr.html" id="ctl01">
+<div class="aspNetHidden">
+<input type="hidden" name="ctl08_TSM" id="ctl08_TSM" value=";;System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35:en:4ae4914f-8c8e-4123-9d05-414d87b48357:ea597d4b:b25378d2;Telerik.Web.UI, Version=2014.3.1209.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4:en:cd668efa-682a-4e93-b784-26f0724f247c:16e4e7cd:58366029">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTExMzM5MDA3OTQPZBYCZg9kFgQCAQ9kFgICBw8WAh4EaHJlZgUaL2Fzc2V0cy9jc3Mvc3R5bGUtYmx1ZS5jc3NkAgMPZBYKAgEPFgIeBWNsYXNzBTFuYXZiYXIgbmF2YmFyLXN0YXRpYy10b3AgbmF2YmFyLWRlZmF1bHQgbm8tcHJpbnQgZAIFD2QWAgIDDzwrAA4CABQrAAIPFgweC18hRGF0YUJvdW5kZx4VRW5hYmxlRW1iZWRkZWRTY3JpcHRzZx4XRW5hYmxlQWpheFNraW5SZW5kZXJpbmdoHhxFbmFibGVFbWJlZGRlZEJhc2VTdHlsZXNoZWV0Zx4LXyFJdGVtQ291bnQCAR4SUmVzb2x2ZWRSZW5kZXJNb2RlCylzVGVsZXJpay5XZWIuVUkuUmVuZGVyTW9kZSwgVGVsZXJpay5XZWIuVUksIFZlcnNpb249MjAxNC4zLjEyMDkuNDUsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49MTIxZmFlNzgxNjViYTNkNAFkFwIFD1NlbGVjdGVkSW5kZXhlcxYABQtFZGl0SW5kZXhlcxYAARYCFgsPAgcUKwAHFCsABRYEHghEYXRhVHlwZRkrAR4Eb2luZAICZGRkBQhQbGF5ZXJJRBQrAAUWBB8IGSsCHwkCA2RkZAUGUmVnaW9uFCsABRYEHwgZKwIfCQIEZGRkBQ9QbGF5ZXJJRFByb2ZpbGUUKwAFFgIfCQIFZGRkBQZMZWFndWUUKwAFFgQfCBkrAR8JAgZkZGQFCkN1cnJlbnRNTVIUKwAFFgQfCBkrAR8JAgdkZGQFC0dhbWVzUGxheWVkFCsABRYEHwgZKwEfCQIIZGRkBQhQbGF5ZXJJRGRlFCsAAAspelRlbGVyaWsuV2ViLlVJLkdyaWRDaGlsZExvYWRNb2RlLCBUZWxlcmlrLldlYi5VSSwgVmVyc2lvbj0yMDE0LjMuMTIwOS40NSwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj0xMjFmYWU3ODE2NWJhM2Q0ATwrAAcACyl1VGVsZXJpay5XZWIuVUkuR3JpZEVkaXRNb2RlLCBUZWxlcmlrLldlYi5VSSwgVmVyc2lvbj0yMDE0LjMuMTIwOS40NSwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj0xMjFmYWU3ODE2NWJhM2Q0AWRkFgwfAmceFElzQm91bmRUb0ZvcndhcmRPbmx5aB4FX3FlbHQZKXRIZXJvZXNXZWJBcHBsaWNhdGlvbi5QbGF5ZXJTZWFyY2hSZXN1bHQsIEhlcm9lc1dlYkFwcGxpY2F0aW9uLCBWZXJzaW9uPTEuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbB4IRGF0YUtleXMWAB4FXyFDSVMXAB8GAgdkZhYEZg8UKwADZGRkZAIBDxYFFCsAAg8WDB8CZx8KaB8LGSsHHwwWAB8NFwAfBgIHZBcDBQtfIUl0ZW1Db3VudAIHBQhfIVBDb3VudGQFBl8hRFNJQwIHFgIeA19zZRYCHgJfY2ZkFgdkZGRkZGRkFgJnZxYCZg9kFiBmD2QWAmYPZBYSZg8PFgQeBFRleHQFBiZuYnNwOx4HVmlzaWJsZWhkZAIBDw8WBB8QBQYmbmJzcDsfEWhkZAICDw8WAh8QBQYmbmJzcDtkZAIDDw8WAh8QBQZSZWdpb25kZAIEDw8WAh8QBQZQbGF5ZXJkZAIFDw8WAh8QBQZMZWFndWVkZAIGDw8WAh8QBQxSYXRpbmcgKE1NUilkZAIHDw8WAh8QBQxHYW1lcyBQbGF5ZWRkZAIIDw8WAh8QBQ1NYXRjaCBIaXN0b3J5ZGQCAQ8PFgIfEWhkFgJmD2QWEmYPDxYCHxAFBiZuYnNwO2RkAgEPDxYCHxAFBiZuYnNwO2RkAgIPDxYCHxAFBiZuYnNwO2RkAgMPDxYCHxAFBiZuYnNwO2RkAgQPDxYCHxAFBiZuYnNwO2RkAgUPDxYCHxAFBiZuYnNwO2RkAgYPDxYCHxAFBiZuYnNwO2RkAgcPDxYCHxAFBiZuYnNwO2RkAggPDxYCHxAFBiZuYnNwO2RkAgIPDxYCHgRfaWloBQEwZBYSZg8PFgIfEWhkZAIBDw8WBB8QBQYmbmJzcDsfEWhkZAICDw8WAh8QBQcxNTg1NDI3ZGQCAw8PFgIfEAUCS1JkZAIED2QWAmYPDxYGHxAFBUtFTlpJHgtOYXZpZ2F0ZVVybAUgL1BsYXllci9Qcm9maWxlP1BsYXllcklEPTE1ODU0MjceB1Rvb2xUaXAFBUtFTlpJZGQCBQ8PFgIfEAUGJm5ic3A7ZGQCBg8PFgIfEAUGJm5ic3A7ZGQCBw8PFgIfEAUBMWRkAggPZBYCZg8PFgYfEAUSVmlldyBNYXRjaCBIaXN0b3J5HxMFJS9QbGF5ZXIvTWF0Y2hIaXN0b3J5P1BsYXllcklEPTE1ODU0MjcfFAUSVmlldyBNYXRjaCBIaXN0b3J5ZGQCAw9kFgJmDw8WAh8RaGRkAgQPDxYCHxIFATFkFhJmDw8WAh8RaGRkAgEPDxYEHxAFBiZuYnNwOx8RaGRkAgIPDxYCHxAFBjg3Mjc3OGRkAgMPDxYCHxAFAkVVZGQCBA9kFgJmDw8WBh8QBQZLw6luemkfEwUfL1BsYXllci9Qcm9maWxlP1BsYXllcklEPTg3Mjc3OB8UBQZLw6luemlkZAIFDw8WAh8QBQYmbmJzcDtkZAIGDw8WAh8QBQYmbmJzcDtkZAIHDw8WAh8QBQI4MGRkAggPZBYCZg8PFgYfEAUSVmlldyBNYXRjaCBIaXN0b3J5HxMFJC9QbGF5ZXIvTWF0Y2hIaXN0b3J5P1BsYXllcklEPTg3Mjc3OB8UBRJWaWV3IE1hdGNoIEhpc3RvcnlkZAIFD2QWAmYPDxYCHxFoZGQCBg8PFgIfEgUBMmQWEmYPDxYCHxFoZGQCAQ8PFgQfEAUGJm5ic3A7HxFoZGQCAg8PFgIfEAUHMTA2MTY3OGRkAgMPDxYCHxAFAkVVZGQCBA9kFgJmDw8WBh8QBQVLZW56aR8TBSAvUGxheWVyL1Byb2ZpbGU/UGxheWVySUQ9MTA2MTY3OB8UBQVLZW56aWRkAgUPDxYCHxAFBiZuYnNwO2RkAgYPDxYCHxAFBiZuYnNwO2RkAgcPDxYCHxAFAjQ4ZGQCCA9kFgJmDw8WBh8QBRJWaWV3IE1hdGNoIEhpc3RvcnkfEwUlL1BsYXllci9NYXRjaEhpc3Rvcnk/UGxheWVySUQ9MTA2MTY3OB8UBRJWaWV3IE1hdGNoIEhpc3RvcnlkZAIHD2QWAmYPDxYCHxFoZGQCCA8PFgIfEgUBM2QWEmYPDxYCHxFoZGQCAQ8PFgQfEAUGJm5ic3A7HxFoZGQCAg8PFgIfEAUGNjQxNzY2ZGQCAw8PFgIfEAUCS1JkZAIED2QWAmYPDxYGHxAFBUtFTlpJHxMFHy9QbGF5ZXIvUHJvZmlsZT9QbGF5ZXJJRD02NDE3NjYfFAUFS0VOWklkZAIFDw8WAh8QBQYmbmJzcDtkZAIGDw8WAh8QBQYmbmJzcDtkZAIHDw8WAh8QBQI2MmRkAggPZBYCZg8PFgYfEAUSVmlldyBNYXRjaCBIaXN0b3J5HxMFJC9QbGF5ZXIvTWF0Y2hIaXN0b3J5P1BsYXllcklEPTY0MTc2Nh8UBRJWaWV3IE1hdGNoIEhpc3RvcnlkZAIJD2QWAmYPDxYCHxFoZGQCCg8PFgIfEgUBNGQWEmYPDxYCHxFoZGQCAQ8PFgQfEAUGJm5ic3A7HxFoZGQCAg8PFgIfEAUHMTAxMjIwN2RkAgMPDxYCHxAFAkVVZGQCBA9kFgJmDw8WBh8QBQVLZW56aR8TBSAvUGxheWVyL1Byb2ZpbGU/UGxheWVySUQ9MTAxMjIwNx8UBQVLZW56aWRkAgUPDxYCHxAFBiZuYnNwO2RkAgYPDxYCHxAFBiZuYnNwO2RkAgcPDxYCHxAFATJkZAIID2QWAmYPDxYGHxAFElZpZXcgTWF0Y2ggSGlzdG9yeR8TBSUvUGxheWVyL01hdGNoSGlzdG9yeT9QbGF5ZXJJRD0xMDEyMjA3HxQFElZpZXcgTWF0Y2ggSGlzdG9yeWRkAgsPZBYCZg8PFgIfEWhkZAIMDw8WAh8SBQE1ZBYSZg8PFgIfEWhkZAIBDw8WBB8QBQYmbmJzcDsfEWhkZAICDw8WAh8QBQYzOTYzNTRkZAIDDw8WAh8QBQJFVWRkAgQPZBYCZg8PFgYfEAUFS2VuemkfEwUfL1BsYXllci9Qcm9maWxlP1BsYXllcklEPTM5NjM1NB8UBQVLZW56aWRkAgUPDxYCHxAFBiZuYnNwO2RkAgYPDxYCHxAFBDIxNzVkZAIHDw8WAh8QBQM2NzdkZAIID2QWAmYPDxYGHxAFElZpZXcgTWF0Y2ggSGlzdG9yeR8TBSQvUGxheWVyL01hdGNoSGlzdG9yeT9QbGF5ZXJJRD0zOTYzNTQfFAUSVmlldyBNYXRjaCBIaXN0b3J5ZGQCDQ9kFgJmDw8WAh8RaGRkAg4PDxYCHxIFATZkFhJmDw8WAh8RaGRkAgEPDxYEHxAFBiZuYnNwOx8RaGRkAgIPDxYCHxAFBzEwMDk2OTZkZAIDDw8WAh8QBQJVU2RkAgQPZBYCZg8PFgYfEAUFS2VuemkfEwUgL1BsYXllci9Qcm9maWxlP1BsYXllcklEPTEwMDk2OTYfFAUFS2VuemlkZAIFDw8WAh8QBQYmbmJzcDtkZAIGDw8WAh8QBQYmbmJzcDtkZAIHDw8WAh8QBQIxMGRkAggPZBYCZg8PFgYfEAUSVmlldyBNYXRjaCBIaXN0b3J5HxMFJS9QbGF5ZXIvTWF0Y2hIaXN0b3J5P1BsYXllcklEPTEwMDk2OTYfFAUSVmlldyBNYXRjaCBIaXN0b3J5ZGQCDw9kFgJmDw8WAh8RaGRkAgsPEGRkFgFmZAIMDxBkZBYBZmQCDQ8QZGQWAWZkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBSVjdGwwMCRNYWluQ29udGVudCRSYWRHcmlkUGxheWVyU2VhcmNoYMTLlFbO0LznWF7XucXzQ806acw=">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['ctl01'];
+if (!theForm) {
+    theForm = document.ctl01;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./search_with_empty_mmr_files/WebResource(2).axd" type="text/javascript"></script>
+
+
+<script src="./search_with_empty_mmr_files/Telerik.Web.UI.WebResource.axd" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3D950310">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC+Soc6mR4H3+48Gk2o9ClEp6UlpdF0bEaaLjKlkphUK1P8xYBxS0xxS8XZ+KTB0S3yhddig43F0WkpgT68rD0RvOxKPzYTJTB755UYMvm5RmJhidv8ivKHfYVgTtz8dEyjNdK5jA2cad6NdnsKzQjx1V3sCZRjj17ygmOiWrUSueUxwkwUyTPuGu3BigbU3DAMNytiHdz2m6CK5PsnrLuldnO6JX9Rzw1hhN+AncBwXsfh9enQqtgYD/hRfAP2XX8YuLehml7PuWBxiBq4PpF19syfJG+oE6qN2R+6Vr9aR8L0bMznWwWNNV/UMbDnFyZYsUK/t2+JWvuPNDzMaPS4zQLdTlk1u0glT9TaBLwIgqxjnOTcKvNFuU0xqizuQOX+2jn3YpzFFkHU8o+bQHjwSKF1Vp7Mu0sRg7PwGtJ0WMowRAaGkdc1IyskF0tXX8DOOPCMvz2DXzcIJy20b2yK58ztg+dXQdbUDHOxn4wGXSNqZX4Xc5pc4CX6WjiT0Sn6WrQaW6PzP1WOgAH1P3dQCfBC1IqeiKKecAYsihrBsqvUhiUg//32Q1JhwZNP9VmARgFz7HIQxgogLsaNhRtAcKNL54awbgW8maK/KEYn2MFL3RvmcA3EFicf7EaQNUHOS3E4JESomhjUHFZWsJOFYYSCSZTFsvLRHRWFhCSRcGjP8oAykCmS+/EL6RE1cInJ+kFqVsSVVn5yXomKUCGT3X5DDyiA7LOnKcD2NDY1stZYbYgpBncL09cIC+DMmeC7Q1IFwmZniqPJHczc10yA7meVFFG0Zgp3GaSFZocdgOUQYwfH1nTpKb8WnY0JioX3wrjSTEfgc8KwSGHenSUT2lFzPJ6KVY4K/EWgQ2h4rKILKmzVqaL77N3G2hZY9UFzFsu/T6zmg83rAmXUaxRmUqhraxGa5DQN64arays49uRYIRFlxU+Z9WYenuAt0+c3Y9xSH03SbnP4Gq1Q9jrY95SwiZgImP8CN5O3g6PPhD3W24fsNgaJFOZKB5lfPNItUJl6j">
+</div>
+
+            <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ctl08', 'ctl01', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+
+            <nav id="header" role="navigation" class="navbar navbar-static-top navbar-default no-print ">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" style="position: relative;">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a href="https://www.hotslogs.com/Default"><img src="./search_with_empty_mmr_files/logo.png" alt="HOTS Logs"></a>
+                    </div> <!-- navbar-header -->
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="https://www.hotslogs.com/Default">Home</a></li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Leaderboard</a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="https://www.hotslogs.com/Rankings?GameMode=4">Hero League</a></li>
+                                    <li><a href="https://www.hotslogs.com/Rankings?GameMode=3">Quick Match</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Hero Details</a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="https://www.hotslogs.com/Sitewide/TalentDetails">Talent Information</a></li>
+                                    <li><a href="https://www.hotslogs.com/Sitewide/HeroDetails">Win Rate Vs Other Heroes</a></li>
+                                    <li><a href="https://www.hotslogs.com/Sitewide/HeroAndMapStatistics">Sitewide Hero and Map Statistics</a></li>
+                                    <li><a href="https://www.hotslogs.com/Sitewide/TeamCompositions">Team Compositions</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Media</a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Replays</a>
+                                        <ul class="dropdown-menu dropdown-menu-left">
+                                            <li><a href="https://www.hotslogs.com/Replays/ReplaySearch">Search and Download Replays</a></li>
+                                            <li><a href="https://www.hotslogs.com/Player/MatchHistory">Share Replay</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Video</a>
+                                        <ul class="dropdown-menu dropdown-menu-left">
+                                            <li><a href="https://www.hotslogs.com/Replays/MFPallyTime">Top 5 Plays w/ MFPallytime</a></li>
+                                            <li><a href="https://www.hotslogs.com/Replays/HotSHottestPlays">HotS Hottest Plays</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">My Account</a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="https://www.hotslogs.com/Player/Profile">Profile</a></li>
+                                    <li><a href="https://www.hotslogs.com/Player/MatchHistory">Match History</a></li>
+                                    <li><a href="https://www.hotslogs.com/Account/Upload">Upload Replays</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="https://www.hotslogs.com/PlayerSearch?Name=Kenzi#" class="dropdown-toggle playerSearchDropdown" data-toggle="dropdown"><i class="fa fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right" style="padding: 10px;">
+                                    <div onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ButtonPlayerSearch&#39;)">
+	
+                                        <table><tbody><tr>
+                                            <td style="padding-right: 10px;"><input name="ctl00$TextBoxPlayerSearch" type="text" id="TextBoxPlayerSearch" placeholder="Find a Player" style="color: black;"></td>
+                                            <td><input type="submit" name="ctl00$ButtonPlayerSearch" value="Search" id="ButtonPlayerSearch" class="btn btn-ar btn-primary"></td>
+                                        </tr></tbody></table>
+                                    
+</div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div><!-- navbar-collapse -->
+                </div><!-- container -->
+            </nav>
+
+            <div id="body" class="container" style="min-height: 800px;">
+                <section class="content-wrapper main-content clear-fix">
+                    <div id="advertisementBanner" style="text-align: center;">
+                        <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- HOTSLogs.com Banner -->
+                        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1610991603286625" data-ad-slot="8244987394"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+                    <hgroup class="title"><h1 class="section-title">Player Search</h1></hgroup>
+                    <div id="advertisementLeftSidebar" style="position: relative; left: -185px; height: 0;">
+                        <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- HOTSLogs Wide Skyscraper Left -->
+                        <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-1610991603286625" data-ad-slot="2640825393"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+                    <div id="advertisementRightSidebar" style="position: relative; float: right; left: 185px; height: 0;">
+                        <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- HOTSLogs Wide Skyscraper Right -->
+                        <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-1610991603286625" data-ad-slot="4117558598"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+                    
+
+    
+    <div id="ctl00_MainContent_RadGridPlayerSearch" class="RadGrid RadGrid_WebBlue" style="width:100%;" tabindex="0">
+
+<!-- 2014.3.1209.45 --><table class="rgMasterTable" id="ctl00_MainContent_RadGridPlayerSearch_ctl00" style="width:100%;table-layout:auto;empty-cells:show;">
+	<colgroup>
+		<col style="display:none;">
+		<col>
+		<col>
+		<col>
+		<col>
+		<col>
+		<col>
+	</colgroup>
+<thead>
+		<tr>
+			<th scope="col" class="rgHeader" style="display:none;">&nbsp;</th><th scope="col" class="rgHeader">Region</th><th scope="col" class="rgHeader">Player</th><th scope="col" class="rgHeader">League</th><th scope="col" class="rgHeader">Rating (MMR)</th><th scope="col" class="rgHeader">Games Played</th><th scope="col" class="rgHeader">Match History</th>
+		</tr>
+	</thead><tbody>
+	<tr class="rgRow" id="ctl00_MainContent_RadGridPlayerSearch_ctl00__0">
+		<td style="display:none;">1585427</td><td>KR</td><td><a title="KENZI" href="https://www.hotslogs.com/Player/Profile?PlayerID=1585427">KENZI</a></td><td>&nbsp;</td><td>&nbsp;</td><td>1</td><td><a title="View Match History" href="https://www.hotslogs.com/Player/MatchHistory?PlayerID=1585427">View Match History</a></td>
+	</tr><tr class="rgAltRow" id="ctl00_MainContent_RadGridPlayerSearch_ctl00__1">
+		<td style="display:none;">872778</td><td>EU</td><td><a title="Kénzi" href="https://www.hotslogs.com/Player/Profile?PlayerID=872778">Kénzi</a></td><td>&nbsp;</td><td>&nbsp;</td><td>80</td><td><a title="View Match History" href="https://www.hotslogs.com/Player/MatchHistory?PlayerID=872778">View Match History</a></td>
+	</tr><tr class="rgRow" id="ctl00_MainContent_RadGridPlayerSearch_ctl00__2">
+		<td style="display:none;">1061678</td><td>EU</td><td><a title="Kenzi" href="https://www.hotslogs.com/Player/Profile?PlayerID=1061678">Kenzi</a></td><td>&nbsp;</td><td>&nbsp;</td><td>48</td><td><a title="View Match History" href="https://www.hotslogs.com/Player/MatchHistory?PlayerID=1061678">View Match History</a></td>
+	</tr><tr class="rgAltRow" id="ctl00_MainContent_RadGridPlayerSearch_ctl00__3">
+		<td style="display:none;">641766</td><td>KR</td><td><a title="KENZI" href="https://www.hotslogs.com/Player/Profile?PlayerID=641766">KENZI</a></td><td>&nbsp;</td><td>&nbsp;</td><td>62</td><td><a title="View Match History" href="https://www.hotslogs.com/Player/MatchHistory?PlayerID=641766">View Match History</a></td>
+	</tr><tr class="rgRow" id="ctl00_MainContent_RadGridPlayerSearch_ctl00__4">
+		<td style="display:none;">1012207</td><td>EU</td><td><a title="Kenzi" href="https://www.hotslogs.com/Player/Profile?PlayerID=1012207">Kenzi</a></td><td>&nbsp;</td><td>&nbsp;</td><td>2</td><td><a title="View Match History" href="https://www.hotslogs.com/Player/MatchHistory?PlayerID=1012207">View Match History</a></td>
+	</tr><tr class="rgAltRow" id="ctl00_MainContent_RadGridPlayerSearch_ctl00__5">
+		<td style="display:none;">396354</td><td>EU</td><td><a title="Kenzi" href="https://www.hotslogs.com/Player/Profile?PlayerID=396354">Kenzi</a></td><td>&nbsp;</td><td>&nbsp;</td><td>677</td><td><a title="View Match History" href="https://www.hotslogs.com/Player/MatchHistory?PlayerID=396354">View Match History</a></td>
+	</tr><tr class="rgRow" id="ctl00_MainContent_RadGridPlayerSearch_ctl00__6">
+		<td style="display:none;">1009696</td><td>US</td><td><a title="Kenzi" href="https://www.hotslogs.com/Player/Profile?PlayerID=1009696">Kenzi</a></td><td>&nbsp;</td><td>&nbsp;</td><td>10</td><td><a title="View Match History" href="https://www.hotslogs.com/Player/MatchHistory?PlayerID=1009696">View Match History</a></td>
+	</tr>
+	</tbody>
+
+</table><input id="ctl00_MainContent_RadGridPlayerSearch_ClientState" name="ctl00_MainContent_RadGridPlayerSearch_ClientState" type="hidden" autocomplete="off">	</div>
+
+
+
+                </section>
+            </div>
+
+            <aside id="footer-widgets" class="no-print">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3 class="footer-widget-title">Information</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="https://www.hotslogs.com/News">News</a></li>
+                                <li><a href="https://www.hotslogs.com/Info/FAQ">Frequently Asked Questions</a></li>
+                                <li><a href="https://www.hotslogs.com/Info/MMRInformation">MMR Information</a></li>
+                                <li><a href="https://www.hotslogs.com/Info/About">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="footer-widget-title">Language</h3>
+                            <select name="ctl00$DropDownLanguage" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$DropDownLanguage\&#39;,\&#39;\&#39;)&#39;, 0)" id="DropDownLanguage" style="color: black;">
+	<option selected="selected" value="en">English</option>
+	<option value="cs">Ceština</option>
+	<option value="da">Dansk</option>
+	<option value="de">Deutsch</option>
+	<option value="es">Español</option>
+	<option value="fi">Suomi</option>
+	<option value="fr">Français</option>
+	<option value="hu">Magyar</option>
+	<option value="ko">한국어</option>
+	<option value="nl">Nederlands</option>
+	<option value="pl">Polski</option>
+	<option value="ru">Pусский</option>
+	<option value="zh-Hans">简体中文</option>
+	<option value="zh-Hant">繁體中文</option>
+
+</select>
+                            <h3 class="footer-widget-title">Theme</h3>
+                            <select name="ctl00$DropDownThemeNavbar" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$DropDownThemeNavbar\&#39;,\&#39;\&#39;)&#39;, 0)" id="DropDownThemeNavbar" style="color: black;">
+	<option selected="selected" value="">Light Navbar</option>
+	<option value="navbar-dark">Dark Navbar</option>
+	<option value="navbar-inverse">Inverse Navbar</option>
+
+</select>
+                            <select name="ctl00$DropDownThemeColor" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$DropDownThemeColor\&#39;,\&#39;\&#39;)&#39;, 0)" id="DropDownThemeColor" style="color: black;">
+	<option selected="selected" value="style-blue">Blue</option>
+	<option value="style-blue2">Blue 2</option>
+	<option value="style-blue3">Blue 3</option>
+	<option value="style-blue4">Blue 4</option>
+	<option value="style-blue5">Blue 5</option>
+	<option value="style-green">Green</option>
+	<option value="style-green2">Green 2</option>
+	<option value="style-green3">Green 3</option>
+	<option value="style-green4">Green 4</option>
+	<option value="style-green5">Green 5</option>
+	<option value="style-red">Red</option>
+	<option value="style-red2">Red 2</option>
+	<option value="style-red3">Red 3</option>
+	<option value="style-fuchsia">Fuchsia</option>
+	<option value="style-pink">Pink</option>
+	<option value="style-yellow">Yellow</option>
+	<option value="style-yellow2">Yellow 2</option>
+	<option value="style-orange">Orange</option>
+	<option value="style-orange2">Orange 2</option>
+	<option value="style-orange3">Orange 3</option>
+	<option value="style-violet">Violet</option>
+	<option value="style-violet2">Violet 2</option>
+	<option value="style-violet3">Violet 3</option>
+	<option value="style-gray">Gray</option>
+	<option value="style-aqua">Aqua</option>
+
+</select>
+                        </div>
+                        <div class="col-md-4">
+                            
+                        </div>
+                    </div> <!-- row -->
+                </div> <!-- container -->
+            </aside> <!-- footer-widgets -->
+
+            <footer id="footer" class="no-print"><p>© 2015 - HOTS Logs</p></footer>
+        
+
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadGrid, {"ClientID":"ctl00_MainContent_RadGridPlayerSearch","ClientSettings":{"AllowAutoScrollOnDragDrop":true,"ShouldCreateRows":true,"DataBinding":{},"Selecting":{"CellSelectionMode":0},"Scrolling":{},"Resizing":{},"ClientMessages":{},"KeyboardNavigationSettings":{"AllowActiveRowCycle":false,"EnableKeyboardShortcuts":true,"FocusKey":89,"InitInsertKey":73,"RebindKey":82,"ExitEditInsertModeKey":27,"UpdateInsertItemKey":13,"DeleteActiveRow":127,"ExpandDetailTableKey":39,"CollapseDetailTableKey":37,"SaveChangesKey":85,"CancelChangesKey":67},"Animation":{},"Virtualization":{}},"Skin":"WebBlue","UniqueID":"ctl00$MainContent$RadGridPlayerSearch","_activeRowIndex":"","_controlToFocus":"","_currentPageIndex":0,"_defaultDateTimeFormat":"M/d/yyyy h:mm:ss tt","_editIndexes":"[]","_embeddedSkin":true,"_gridTableViewsData":"[{\"ClientID\":\"ctl00_MainContent_RadGridPlayerSearch_ctl00\",\"UniqueID\":\"ctl00$MainContent$RadGridPlayerSearch$ctl00\",\"PageSize\":10,\"PageCount\":1,\"EditMode\":\"EditForms\",\"AllowPaging\":false,\"CurrentPageIndex\":0,\"VirtualItemCount\":0,\"AllowMultiColumnSorting\":false,\"AllowNaturalSort\":true,\"AllowFilteringByColumn\":false,\"PageButtonCount\":10,\"HasDetailTables\":false,\"HasMultiHeaders\":false,\"CheckListWebServicePath\":\"\",\"GroupLoadMode\":\"Server\",\"PagerAlwaysVisible\":false,\"IsItemInserted\":false,\"clientDataKeyNames\":[],\"hasDetailItemTemplate\":false,\"_dataBindTemplates\":false,\"_selectedItemStyle\":\"\",\"_selectedItemStyleClass\":\"rgSelectedRow\",\"_columnsData\":[{\"UniqueName\":\"PlayerID\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.Int32\",\"DataField\":\"PlayerID\",\"Display\":false},{\"UniqueName\":\"Region\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"Region\",\"Display\":true},{\"UniqueName\":\"PlayerIDProfile\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridHyperLinkColumn\",\"ColumnGroupName\":\"\",\"Editable\":false,\"DataTypeName\":\"System.String\",\"DataTextField\":\"Name\",\"DataTextFormatString\":\"\",\"DataNavigateUrlFields\":[\"PlayerID\"],\"DataNavigateUrlFormatString\":\"/Player/Profile?PlayerID={0}\",\"Display\":true},{\"UniqueName\":\"League\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"LeagueName\",\"Display\":true},{\"UniqueName\":\"CurrentMMR\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.Int32\",\"DataField\":\"CurrentMMR\",\"Display\":true},{\"UniqueName\":\"GamesPlayed\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.Int32\",\"DataField\":\"GamesPlayed\",\"Display\":true},{\"UniqueName\":\"PlayerID\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridHyperLinkColumn\",\"ColumnGroupName\":\"\",\"Editable\":false,\"DataTypeName\":\"System.Int32\",\"DataTextField\":\"PlayerID\",\"DataTextFormatString\":\"View Match History\",\"DataNavigateUrlFields\":[\"PlayerID\"],\"DataNavigateUrlFormatString\":\"/Player/MatchHistory?PlayerID={0}\",\"Display\":true}]}]","_masterClientID":"ctl00_MainContent_RadGridPlayerSearch_ctl00","_shouldFocusOnPage":false,"allowMultiRowSelection":false,"clientStateFieldID":"ctl00_MainContent_RadGridPlayerSearch_ClientState","expandItems":{},"renderMode":1}, null, null, $get("ctl00_MainContent_RadGridPlayerSearch"));
+});
+//]]>
+</script>
+</form>
+
+        <div id="back-top" style="display: none;"><a href="https://www.hotslogs.com/PlayerSearch?Name=Kenzi#header"><i class="fa fa-chevron-up"></i></a></div>
+    
+
+<span id="buffer-extension-hover-button" style="display: none;position: absolute;z-index: 8675309;width: 100px;height: 25px;background-image: url(chrome-extension://noojglkidnpfjbincgijbaiedldjfbhh/data/shared/img/buffer-hover-icon@1x.png);background-size: 100px 25px;opacity: 0.9;cursor: pointer;"></span></body></html>
