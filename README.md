@@ -5,7 +5,7 @@
 * Stable branch:
 [![Build Status](https://travis-ci.org/chadrien/hots-irc-bot.svg?branch=master)](https://travis-ci.org/chadrien/hots-irc-bot)
 [![Coverage Status](https://coveralls.io/repos/chadrien/hots-irc-bot/badge.svg?branch=master)](https://coveralls.io/r/chadrien/hots-irc-bot?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/54d57e913ca0849531000688/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d57e913ca0849531000688)
+[![Dependency Status](https://www.versioneye.com/user/projects/54da6f1cc1bbbd5f8200023d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54da6f1cc1bbbd5f8200023d)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chadrien/hots-irc-bot/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/chadrien/hots-irc-bot/?branch=master)
 
 ## Run
