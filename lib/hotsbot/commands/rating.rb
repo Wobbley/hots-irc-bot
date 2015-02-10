@@ -32,18 +32,22 @@ module Hotsbot
           return
         end
 
-        5.times do |i|
-          break if tr_elements[i].nil?
+        tr_elements_with_mmr = tr_elements.to_a.select do |tr|
+          not tr.nil? and not tr.css('td')[4].nil? and %r{\d+}.match(tr.css('td')[4].text)
+        end
 
-          td_elements = tr_elements[i].css('td')
+        5.times do |i|
+          break if tr_elements_with_mmr[i].nil?
+
+          td_elements = tr_elements_with_mmr[i].css('td')
           region = td_elements[1].text
           battletag = td_elements[2].text
           rating = td_elements[4].text
 
-          m.target.send "[#{region}] #{battletag} — #{rating}" if %r{\d+}.match(rating)
+          m.target.send "[#{region}] #{battletag} — #{rating}"
         end
 
-        m.target.send "Here's the full list of #{username} ratings: #{Rating::URL}#{username}" if tr_elements.count > 5
+        m.user.send "Here's the full list of #{username} ratings: #{Rating::URL}#{username}" if tr_elements_with_mmr.count > 5
       end
     end
   end

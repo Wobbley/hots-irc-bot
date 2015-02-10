@@ -23,7 +23,10 @@ module Hotsbot
 
         tr_element = MiniTest::Mock.new
         tr_element.expect :nil?, false
+        tr_element.expect :nil?, false
         tr_element.expect :nil?, true
+        tr_element.expect :css, td_elements, ['td']
+        tr_element.expect :css, td_elements, ['td']
         tr_element.expect :css, td_elements, ['td']
         tr_elements = [tr_element]
 
@@ -89,6 +92,9 @@ module Hotsbot
         tr_elements = []
         6.times do |i|
           tr_element = MiniTest::Mock.new
+          tr_element.expect :nil?, false
+          tr_element.expect :css, td_elements, ['td']
+          tr_element.expect :css, td_elements, ['td']
 
           if i < 5
             tr_element.expect :nil?, false
@@ -105,7 +111,8 @@ module Hotsbot
         message = OpenStruct.new
         message.target = MiniTest::Mock.new
         5.times { message.target.expect :send, nil, ["[#{region}] #{username} — #{rating}"] }
-        message.target.expect :send, nil, ["Here's the full list of #{username} ratings: #{Rating::URL}#{username}"]
+        message.user = MiniTest::Mock.new
+        message.user.expect :send, nil, ["Here's the full list of #{username} ratings: #{Rating::URL}#{username}"]
 
         Rating.new(bot).rating(message, username, page)
 
@@ -117,32 +124,14 @@ module Hotsbot
         bot = Cinch::Bot.new
         bot.loggers.level = :fatal
 
-        region = 'EU'
-        username = 'Username'
-        rating = ''
-        td_elements = []
-        ['', region, username, '', rating].each do |d|
-          td_element = OpenStruct.new
-          td_element.text = d
-          td_elements.push td_element
-        end
-
-        tr_element = MiniTest::Mock.new
-        tr_element.expect :nil?, false
-        tr_element.expect :nil?, true
-        tr_element.expect :css, td_elements, ['td']
-        tr_elements = [tr_element]
-
-        page = MiniTest::Mock.new
-        page.expect :nil?, false
-        page.expect :css, tr_elements, ['tbody tr']
+        page = Nokogiri::HTML(open(File.dirname(__FILE__) +'/../../../fixtures/search_with_empty_mmr.html'))
 
         message = OpenStruct.new
         message.target = MiniTest::Mock.new
+        message.target.expect :send, nil, ['[EU] Kenzi — 2175']
 
-        Rating.new(bot).rating(message, username, page)
+        Rating.new(bot).rating(message, 'Kenzi', page)
 
-        page.verify
         message.target.verify
       end
     end
