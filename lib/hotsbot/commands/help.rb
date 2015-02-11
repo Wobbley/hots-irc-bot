@@ -29,6 +29,10 @@ module Hotsbot
 
         return m.user.send "help: Unknown command #{command.dump}" if found.empty?
 
+        send_help_to_user(found, m)
+      end
+
+      def send_help_to_user(found, m)
         found.each { |cmd| m.user.send "!#{cmd.usage}" }
         m.user.send ''
         m.user.send found.first.description
