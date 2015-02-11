@@ -38,10 +38,10 @@ module Hotsbot
       end
 
       def getbt(m, username=nil)
-        m.target.send 'A IRC username is required, example: !getbt Username' if username.nil?
+        return m.target.send 'A IRC username is required, example: !getbt Username' if username.nil?
 
         result = load_battletag(username)
-        m.target.send "No BattleTag found for #{username}" if result.empty?
+        return m.target.send "No BattleTag found for #{username}" if result.empty?
 
         battletag = result.first.first
         region = result.first[1]
