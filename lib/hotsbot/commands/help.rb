@@ -23,22 +23,15 @@ module Hotsbot
 
       # override the method to send help to the user only
       def help(m,command=nil)
-        if command
-          found = commands_named(command)
+        return each_command { |cmd| m.user.send "!#{cmd.usage} - #{cmd.summary}" } unless command
 
-          if found.empty?
-            m.user.send "help: Unknown command #{command.dump}"
-          else
-            found.each { |cmd| m.user.send "!#{cmd.usage}" }
+        found = commands_named(command)
 
-            m.user.send ''
-            m.user.send found.first.description
-          end
-        else
-          each_command do |cmd|
-            m.user.send "!#{cmd.usage} - #{cmd.summary}"
-          end
-        end
+        return m.user.send "help: Unknown command #{command.dump}" if found.empty?
+
+        found.each { |cmd| m.user.send "!#{cmd.usage}" }
+        m.user.send ''
+        m.user.send found.first.description
       end
     end
   end
