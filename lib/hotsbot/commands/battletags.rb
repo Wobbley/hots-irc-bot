@@ -12,14 +12,14 @@ module Hotsbot
       match 'getbt', method: :getbt
       command(
         :getbt,
-        { username: :string },
+        {username: :string},
         summary: 'Print the BattleTag for the entered name'
       )
 
       match 'addbt', method: :addbt
       command(
         :addbt,
-        { battletag: :string, region: :string },
+        {battletag: :string, region: :string},
         summary: 'Saves your BattleTag'
       )
 
@@ -38,20 +38,14 @@ module Hotsbot
       end
 
       def getbt(m, username=nil)
-        if username.nil?
-          m.target.send 'A IRC username is required, example: !getbt Username'
-        else
-          result = load_battletag(username)
+        m.target.send 'A IRC username is required, example: !getbt Username' if username.nil?
 
-          if result.empty?
-            m.target.send "No BattleTag found for #{username}"
-          else
-            battletag = result.first.first
-            region = result.first[1]
+        result = load_battletag(username)
+        m.target.send "No BattleTag found for #{username}" if result.empty?
 
-            m.target.send "#{username}'s BattleTag is [#{region}]#{battletag}"
-          end
-        end
+        battletag = result.first.first
+        region = result.first[1]
+        m.target.send "#{username}'s BattleTag is [#{region}]#{battletag}"
       end
 
       def load_battletag(username)
