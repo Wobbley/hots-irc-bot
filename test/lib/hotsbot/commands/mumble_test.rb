@@ -15,7 +15,7 @@ module Hotsbot
 
         message = OpenStruct.new
         message.target = MiniTest::Mock.new
-        message.target.expect :send, nil, ["The Reddit community mumble server can be found here: #{Mumble::URL}"]
+        message.target.expect :send, nil, [Mumble::COMMAND_MESSAGE]
 
         sut.mumble(message)
 

@@ -15,7 +15,7 @@ module Hotsbot
 
         message = OpenStruct.new
         message.target = MiniTest::Mock.new
-        message.target.expect :send, nil, ["You can submit a bug by creating an issue at this URL: #{Bug::URL}"]
+        message.target.expect :send, nil, [Bug::COMMAND_MESSAGE]
 
         sut.bug(message)
 
