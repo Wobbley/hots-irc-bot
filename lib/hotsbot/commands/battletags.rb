@@ -13,17 +13,24 @@ module Hotsbot
       command(
         :getbt,
         {username: :string},
-        summary: 'Print the BattleTag for the entered name'
+        summary: 'Print the BattleTag for the entered name',
+        description: 'Print the BattleTag for the entered name'
       )
 
       match 'addbt', method: :addbt
       command(
         :addbt,
         {battletag: :string, region: :string},
-        summary: 'Saves your BattleTag'
+        summary: 'Saves your BattleTag',
+        description: 'Saves your BattleTag'
       )
 
-      command :removebt, {}, summary: 'Remove your BattleTag from the database'
+      command(
+        :removebt,
+        {},
+        summary: 'Remove your BattleTag from the database',
+        description: 'Remove your BattleTag from the database'
+      )
 
       def initialize(bot, db=nil)
         super bot

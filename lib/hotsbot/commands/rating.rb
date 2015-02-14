@@ -13,7 +13,9 @@ module Hotsbot
       URL = 'https://www.hotslogs.com/PlayerSearch?NoRedirect=1&Name='
 
       match 'rating', method: :rating
-      command :rating, { username: :string }, summary: 'Replies with a list of players with the given BattleTag from HotsLogs'
+      command :rating, { username: :string },
+              summary: 'Replies with a list of players with the given BattleTag from HotsLogs',
+              description: 'Replies with a list of players with the given BattleTag from HotsLogs'
 
       def rating(m, username=nil, page=nil)
         return m.target.send 'Get Hotslogs rating from BattleTag, example: !rating username' if username.nil?

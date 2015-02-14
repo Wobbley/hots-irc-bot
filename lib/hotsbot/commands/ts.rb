@@ -8,7 +8,10 @@ module Hotsbot
       include Cinch::Plugin
       include Cinch::Commands
 
-      command :ts, {}, { summary: 'Prints server info of the Reddit Teamspeak', aliases: [ :ts3 ] }
+      command :ts, {},
+              aliases: [ :ts3 ],
+              summary: 'Prints server info of the Reddit Teamspeak',
+              description: 'Prints server info of the Reddit Teamspeak'
 
       URL = 'ts3.oda-h.com'
 

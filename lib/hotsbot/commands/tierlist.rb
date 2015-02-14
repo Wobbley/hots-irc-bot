@@ -8,7 +8,10 @@ module Hotsbot
       include Cinch::Plugin
       include Cinch::Commands
 
-      command :tierlist, {}, summary: 'Replies with the url for the Zuna tierlist', aliases: [:tl]
+      command :tierlist, {},
+              aliases: [:tl],
+              summary: 'Replies with the url for the Zuna tierlist',
+              description: 'Replies with the url for the Zuna tierlist'
 
       URL = 'http://heroesofthestorm.github.io/zuna-tierlist'
 

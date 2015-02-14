@@ -12,7 +12,9 @@ module Hotsbot
 
       URL = 'http://heroesofthestorm.github.io/free-hero-rotation'
 
-      command :rotation, {}, summary: 'Prints the current free hero rotation'
+      command :rotation, {},
+              summary: 'Prints the current free hero rotation',
+              description: 'Prints the current free hero rotation'
 
       def initialize(bot, page=nil)
         super bot

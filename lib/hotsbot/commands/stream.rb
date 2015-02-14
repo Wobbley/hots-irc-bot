@@ -10,7 +10,10 @@ module Hotsbot
       include Cinch::Plugin
       include Cinch::Commands
 
-      command :streams, {}, summary: 'List live featured streams'
+      command :streams, {},
+              summary: 'List live featured streams',
+              description: 'List live featured streams'
+
       match Command.new('addstream', {stream: :string}).regexp, method: :add_stream
       match Command.new('removestream', {stream: :string}).regexp, method: :remove_stream
       match Command.new('liststreams', {}).regexp, method: :list_streams

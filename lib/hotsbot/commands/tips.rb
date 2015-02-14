@@ -8,8 +8,12 @@ module Hotsbot
       include Cinch::Plugin
       include Cinch::Commands
 
-      command :tips, {}, summary: 'Links the tips section'
-      command :tips, { username: :string }, summary: 'Links the tips section and highlights user'
+      command :tips, {},
+              summary: 'Links the tips section',
+              description: 'Links the tips section'
+      command :tips, { username: :string },
+              summary: 'Links the tips section and highlights user',
+              description: 'Links the tips section and highlights user'
 
       URL = 'http://heroesofthestorm.github.io/tips'
 
