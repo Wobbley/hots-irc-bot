@@ -11,7 +11,7 @@ module Hotsbot
       include Cinch::Commands
 
       COMMAND = 'bug'
-      COMMAND_SUMMARY = "Submit an issue the bot's bug tracker"
+      COMMAND_SUMMARY = "Submit an issue to the bot's bug tracker"
       COMMAND_MESSAGE = 'You can submit a bug by creating an issue at this URL: http://github.com/chadrien/hots-irc-bot/issues'
       include UrlPrinter
     end
