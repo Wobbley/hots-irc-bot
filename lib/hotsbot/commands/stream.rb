@@ -35,14 +35,17 @@ module Hotsbot
 
         return m.target.send 'No streams yet!' if results.empty?
 
+        m.target.send "[Online streamers] #{get_streams_url_and_views(results).join(' — ')}"
+      end
+
+      def get_streams_url_and_views(results)
         streams = []
 
         results.each do |s|
           channel = Twitch.channels.get(s.first)
           streams << "#{channel.url} (#{channel.stream.viewer_count})" if channel.streaming?
         end
-
-        m.target.send "[Online streamers] #{streams.join(' — ')}"
+        streams
       end
 
       def add_stream(m, stream)
