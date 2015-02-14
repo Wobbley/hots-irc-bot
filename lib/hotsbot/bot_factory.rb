@@ -14,6 +14,7 @@ require File.dirname(__FILE__) + '/commands/tierlist'
 require File.dirname(__FILE__) + '/commands/rotation'
 require File.dirname(__FILE__) + '/commands/rating'
 require File.dirname(__FILE__) + '/commands/help'
+require File.dirname(__FILE__) + '/commands/stream'
 
 module Hotsbot
   class BotFactory
@@ -32,12 +33,17 @@ module Hotsbot
             Commands::Rating,
             Commands::Rotation,
             Commands::Tierlist,
+            Commands::Stream,
             Commands::Tips,
             Commands::Mumble,
             Commands::Ts,
             Commands::Bug,
             Commands::Help
           ]
+
+          c.plugins.options[Commands::Stream] = {
+            admins: configuration.stream.admins
+          }
 
           unless configuration.irc.password.nil?
             c.plugins.plugins.push Cinch::Plugins::Identify

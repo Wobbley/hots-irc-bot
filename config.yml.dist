@@ -4,3 +4,8 @@ irc:
     - "#foo"
   nick: botname
   password: password # optional
+
+stream:
+  admins:
+    - admin1
+    - admin2

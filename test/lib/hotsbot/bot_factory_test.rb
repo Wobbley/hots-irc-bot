@@ -61,6 +61,7 @@ module Hotsbot
           Commands::Rating,
           Commands::Rotation,
           Commands::Tierlist,
+          Commands::Stream,
           Commands::Tips,
           Commands::Mumble,
           Commands::Ts,
@@ -69,6 +70,16 @@ module Hotsbot
           Cinch::Plugins::Identify
         ],
         bot.config.plugins.plugins
+      )
+    end
+
+    def test_stream_is_correctly_configured
+      bot = BotFactory.from_configuration(Hotsbot::Utils::Configuration.config)
+      assert_equal(
+        {
+          admins: Hotsbot::Utils::Configuration.config.stream.admins
+        },
+        bot.config.plugins.options[Commands::Stream]
       )
     end
   end

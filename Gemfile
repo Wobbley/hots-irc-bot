@@ -8,6 +8,7 @@ gem 'app_conf'
 gem 'sqlite3'
 gem 'json'
 gem 'nokogiri'
+gem 'kappa'
 
 gem 'rake', group: :test
 gem 'minitest', group: :test

@@ -5,3 +5,7 @@ irc:
     - "#bar"
   nick: foobot
   password: password
+
+stream:
+  admins:
+    - foo
