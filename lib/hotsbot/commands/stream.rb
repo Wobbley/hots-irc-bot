@@ -28,14 +28,18 @@ module Hotsbot
       end
 
       def streams(m)
-        streams = @db.execute 'SELECT channel_name FROM Streams'
+        results = @db.execute 'SELECT channel_name FROM Streams'
 
-        return m.target.send 'No streams yet!' if streams.empty?
+        return m.target.send 'No streams yet!' if results.empty?
 
-        streams.each do |s|
+        streams = []
+
+        results.each do |s|
           channel = Twitch.channels.get(s.first)
-          m.target.send "[#{channel.display_name}] #{channel.status} — #{channel.url}" if channel.streaming?
+          streams << "#{channel.url} (#{channel.stream.viewer_count})" if channel.streaming?
         end
+
+        m.target.send "[Online streamers] #{streams.join(' — ')}"
       end
 
       def add_stream(m, stream)
