@@ -22,6 +22,7 @@
 * rating USERNAME - Replies with a list of players with the given BattleTag from HotsLogs
 * rotation - Prints the current free hero rotation
 * tierlist - Replies with the url for the Zuna tierlist
+* streams - List live featured streams
 * tips - Links the tips section
 * tips USERNAME - Links the tips section and highlights user
 * mumble - Prints server info of the Reddit Mumble
@@ -29,6 +30,19 @@
 * bug - Submit an issue the bot's bug tracker
 * help COMMAND - Displays help information for the COMMAND
 * help - Lists available commands
+
+## Streams module
+
+`!streams` displays a list of [twitch.tv](http://www.twitch.tv/) streams that are currently live.
+
+To be able to add or remove streams from the streams list, you need to be a stream admin. Stream admins are managed via
+the `config.yml` file.
+
+Stream admins have the following additional commands:
+
+* addstream STREAM — Stream can be a channel name (*khaldor*) or a twitch URL (*http://www.twitch.tv/khaldor*)
+* removestream STREAM — Stream can be a channel name (*khaldor*) or a twitch URL (*http://www.twitch.tv/khaldor*)
+* liststreams — List all streams currently in the database
 
 ## Contributing
 
