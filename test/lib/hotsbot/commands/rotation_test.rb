@@ -27,7 +27,7 @@ module Hotsbot
         message.target = MiniTest::Mock.new
         message.target.expect :send, nil, ["Free rotation list: #{heroes_names.join(', ')}"]
 
-        Rotation.new(bot, page).rotation(message)
+        Rotation.new(bot).rotation(message, page)
 
         page.verify
         message.target.verify
@@ -45,7 +45,7 @@ module Hotsbot
         message.target = MiniTest::Mock.new
         message.target.expect :send, nil, ["Free rotation list: #{Rotation::URL}"]
 
-        Rotation.new(bot, page).rotation(message)
+        Rotation.new(bot).rotation(message, page)
 
         page.verify
         message.target.verify
@@ -61,7 +61,7 @@ module Hotsbot
         message.target = MiniTest::Mock.new
         message.target.expect :send, nil, ['Free rotation list: Jaina, Malfurion, Tassadar, Tyrael, Valla, Zagara, Chen']
 
-        Rotation.new(bot, page).rotation(message)
+        Rotation.new(bot).rotation(message, page)
 
         message.target.verify
       end
