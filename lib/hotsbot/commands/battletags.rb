@@ -3,11 +3,14 @@ require 'cinch'
 require 'cinch/commands'
 require 'sqlite3'
 
+require File.dirname(__FILE__) + '/db_command'
+
 module Hotsbot
   module Commands
     class Battletags
       include Cinch::Plugin
       include Cinch::Commands
+      include DbCommand
 
       match 'getbt', method: :getbt
       command(
@@ -35,13 +38,7 @@ module Hotsbot
       def initialize(bot, db=nil)
         super bot
 
-        if db.nil?
-          @db = SQLite3::Database.new File.dirname(__FILE__) + '/../../../hotsbot.db'
-        else
-          @db = db
-        end
-
-        @db.execute 'CREATE TABLE IF NOT EXISTS Battletags (nick text, battletag text, region text)'
+        init_db db, 'CREATE TABLE IF NOT EXISTS Battletags (nick text, battletag text, region text)'
       end
 
       def getbt(m, username=nil)
@@ -56,7 +53,7 @@ module Hotsbot
       end
 
       def load_battletag(username)
-        @db.execute('SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username])
+        db.execute('SELECT battletag, region FROM Battletags WHERE nick=? COLLATE NOCASE', [username])
       end
 
       def addbt(m, battletag=nil, region=nil)
@@ -72,10 +69,10 @@ module Hotsbot
       def inject_battletag_to_database(nick, battletag, region)
         result = load_battletag(nick)
         if result.empty?
-          @db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [nick, battletag, region])
+          db.execute('INSERT INTO Battletags VALUES (?, ?, ?)', [nick, battletag, region])
           'BattleTag added'
         else
-          @db.execute('UPDATE Battletags SET battletag = ?, region = ? WHERE nick = ?', [battletag, region, nick])
+          db.execute('UPDATE Battletags SET battletag = ?, region = ? WHERE nick = ?', [battletag, region, nick])
           'BattleTag updated'
         end
       end
@@ -99,7 +96,7 @@ module Hotsbot
       end
 
       def removebt(m)
-        @db.execute('DELETE FROM Battletags WHERE nick=?', [m.user.nick])
+        db.execute('DELETE FROM Battletags WHERE nick=?', [m.user.nick])
 
         m.target.send 'BattleTag removed'
       end

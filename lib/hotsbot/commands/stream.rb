@@ -4,11 +4,14 @@ require 'cinch/commands'
 require 'sqlite3'
 require 'kappa'
 
+require File.dirname(__FILE__) + '/db_command'
+
 module Hotsbot
   module Commands
     class Stream
       include Cinch::Plugin
       include Cinch::Commands
+      include DbCommand
 
       command :streams, {},
               summary: 'List live featured streams',
@@ -21,17 +24,11 @@ module Hotsbot
       def initialize(bot, db=nil)
         super bot
 
-        if db.nil?
-          @db = SQLite3::Database.new File.dirname(__FILE__) + '/../../../hotsbot.db'
-        else
-          @db = db
-        end
-
-        @db.execute 'CREATE TABLE IF NOT EXISTS Streams (channel_name text)'
+        init_db db, 'CREATE TABLE IF NOT EXISTS Streams (channel_name text)'
       end
 
       def streams(m)
-        results = @db.execute 'SELECT channel_name FROM Streams'
+        results = db.execute 'SELECT channel_name FROM Streams'
 
         return m.target.send 'No streams yet!' if results.empty?
 
@@ -53,20 +50,20 @@ module Hotsbot
 
         channel_name = get_channel_name(stream)
 
-        @db.execute 'INSERT INTO Streams VALUES (?)', [channel_name]
+        db.execute 'INSERT INTO Streams VALUES (?)', [channel_name]
         m.user.send 'Stream added'
       end
 
       def remove_stream(m, stream)
         return m.user.send 'You are not allowed to remove streams' unless is_user_admin(m)
 
-        @db.execute 'DELETE FROM Streams WHERE channel_name=?', [get_channel_name(stream)]
+        db.execute 'DELETE FROM Streams WHERE channel_name=?', [get_channel_name(stream)]
         m.user.send 'Stream removed'
       end
 
       def list_streams(m)
         if is_user_admin(m)
-          channel_names = @db.execute('SELECT channel_name FROM Streams').map { |c| c.first }
+          channel_names = db.execute('SELECT channel_name FROM Streams').map { |c| c.first }
           m.user.send channel_names.join(' — ')
         end
       end
