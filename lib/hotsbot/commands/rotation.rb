@@ -16,24 +16,24 @@ module Hotsbot
               summary: 'Prints the current free hero rotation',
               description: 'Prints the current free hero rotation'
 
-      def initialize(bot, page=nil)
-        super bot
+      def rotation(m, page=nil)
+        page = init_page(page)
 
-        if page.nil?
-          page = Nokogiri::HTML(open(URL))
-        end
-
-        @page = page
-      end
-
-      def rotation(m)
-        heroes_list = @page.css('button.btn:not(.dropdown-toggle)').to_a[0..6].map { |e| e.text }
+        heroes_list = page.css('button.btn:not(.dropdown-toggle)').to_a[0..6].map { |e| e.text }
 
         if heroes_list.empty?
           m.target.send "Free rotation list: #{URL}"
         else
           m.target.send "Free rotation list: #{heroes_list.join(', ')}"
         end
+      end
+
+      def init_page(page)
+        if page.nil?
+          page = Nokogiri::HTML(open(URL))
+        end
+
+        page
       end
     end
   end
