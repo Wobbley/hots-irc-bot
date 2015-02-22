@@ -186,10 +186,12 @@ module Hotsbot
         message.user.expect :send, nil, ['Stream added']
 
         stream = MiniTest::Mock.new
+        stream.expect :nil?, false
         stream.expect :viewer_count, stream_viewers
         channel = MiniTest::Mock.new
         channel.expect :streaming?, true
         channel.expect :url, stream_url
+        channel.expect :stream, stream
         channel.expect :stream, stream
 
         @db.expect(
@@ -219,10 +221,12 @@ module Hotsbot
         @db.expect :execute, [[stream_name]], ['SELECT channel_name FROM Streams']
 
         stream = MiniTest::Mock.new
+        stream.expect :nil?, false
         stream.expect :viewer_count, stream_viewers
         channel = MiniTest::Mock.new
         channel.expect :streaming?, true
         channel.expect :url, stream_url
+        channel.expect :stream, stream
         channel.expect :stream, stream
 
         @db.expect(
