@@ -43,6 +43,13 @@ Stream admins have the following additional commands:
 * addstream STREAM — Stream can be a channel name (*khaldor*) or a twitch URL (*http://www.twitch.tv/khaldor*)
 * removestream STREAM — Stream can be a channel name (*khaldor*) or a twitch URL (*http://www.twitch.tv/khaldor*)
 * liststreams — List all streams currently in the database
+* refreshstreams — Refresh stream cache in database (see bellow)
+
+### Caching
+
+As Twitch API can be a bit long to respond, stream data are cached in database on addition
+and a task is ran every 10 minutes to refresh the cache. The `!refreshstreams` command can
+be used to manually refresh the cache.
 
 ## Contributing
 
