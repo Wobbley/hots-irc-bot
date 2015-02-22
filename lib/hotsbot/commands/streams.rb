@@ -8,7 +8,7 @@ require File.dirname(__FILE__) + '/db_command'
 
 module Hotsbot
   module Commands
-    class Stream
+    class Streams
       include Cinch::Plugin
       include Cinch::Commands
       include DbCommand

@@ -61,7 +61,7 @@ module Hotsbot
           Commands::Rating,
           Commands::Rotation,
           Commands::Tierlist,
-          Commands::Stream,
+          Commands::Streams,
           Commands::Tips,
           Commands::Mumble,
           Commands::Ts,
@@ -79,7 +79,7 @@ module Hotsbot
         {
           admins: Hotsbot::Utils::Configuration.config.stream.admins
         },
-        bot.config.plugins.options[Commands::Stream]
+        bot.config.plugins.options[Commands::Streams]
       )
     end
   end

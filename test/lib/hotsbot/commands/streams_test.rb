@@ -1,23 +1,23 @@
 require 'minitest/mock'
 
 require File.dirname(__FILE__) + '/../../../helper'
-require File.dirname(__FILE__) + '/../../../../lib/hotsbot/commands/stream'
+require File.dirname(__FILE__) + '/../../../../lib/hotsbot/commands/streams'
 
 module Hotsbot
   module Commands
-    class StreamTest < TestCase
+    class StreamsTest < TestCase
       def setup
         @admins = ['foo_admin']
 
         bot = Cinch::Bot.new
         bot.loggers.level = :fatal
-        bot.config.plugins.options[Stream] = { admins: @admins}
+        bot.config.plugins.options[Streams] = { admins: @admins}
 
         @db = MiniTest::Mock.new
         @db.expect :nil?, false
         @db.expect :execute, nil, [String]
 
-        @SUT = Stream.new(bot, @db)
+        @SUT = Streams.new(bot, @db)
       end
 
       def test_create_database_if_not_exists
@@ -28,7 +28,7 @@ module Hotsbot
         db.expect :nil?, false
         db.expect :execute, nil, ['CREATE TABLE IF NOT EXISTS Streams (channel_name text)']
 
-        Stream.new(bot, db)
+        Streams.new(bot, db)
 
         db.verify
       end
