@@ -95,9 +95,10 @@ module Hotsbot
       def cache_stream_data(channel_name)
         channel = Twitch.channels.get(channel_name)
         if channel
+          viewer_count = channel.stream.nil? ? 0 : channel.stream.viewer_count
           @db.execute(
             'UPDATE Streams SET channel_url=?, viewer_count=?, live=? WHERE channel_name=?',
-            [channel.url, channel.stream.viewer_count, channel.streaming? ? 1 : 0, channel_name]
+            [channel.url, viewer_count, channel.streaming? ? 1 : 0, channel_name]
           )
         end
       end
