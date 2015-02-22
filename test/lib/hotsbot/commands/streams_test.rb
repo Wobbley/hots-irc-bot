@@ -26,7 +26,7 @@ module Hotsbot
 
         db = MiniTest::Mock.new
         db.expect :nil?, false
-        db.expect :execute, nil, ['CREATE TABLE IF NOT EXISTS Streams (channel_name text)']
+        db.expect :execute, nil, ['CREATE TABLE IF NOT EXISTS Streams (channel_name text, channel_url text null, viewer_count int null, live tinyint null)']
 
         Streams.new(bot, db)
 
@@ -85,7 +85,7 @@ module Hotsbot
         channel_name = 'FooChannel'
         stream = "http://www.twitch.tv/#{channel_name}"
 
-        @db.expect :execute, [], ['INSERT INTO Streams VALUES (?)', [channel_name]]
+        @db.expect :execute, [], ['INSERT INTO Streams (channel_name) VALUES (?)', [channel_name]]
 
         message = OpenStruct.new
         get_message_from_user(message)
@@ -100,7 +100,7 @@ module Hotsbot
       def test_can_add_stream_via_channel_name_only
         stream = 'FooChannel'
 
-        @db.expect :execute, [], ['INSERT INTO Streams VALUES (?)', [stream]]
+        @db.expect :execute, [], ['INSERT INTO Streams (channel_name) VALUES (?)', [stream]]
 
         message = OpenStruct.new
         get_message_from_user(message)
@@ -184,6 +184,41 @@ module Hotsbot
         get_message_from_user(message, 'not_admin')
 
         @SUT.list_streams(message)
+
+        @db.verify
+        message.user.verify
+      end
+
+      def test_add_stream_cache_stream_data
+        stream_name = 'foochannel'
+        stream_url = "http://www.twitch.tv/#{stream_name}"
+        stream_viewers = '60'
+
+        @db.expect :execute, [], ['INSERT INTO Streams (channel_name) VALUES (?)', [stream_name]]
+
+        message = OpenStruct.new
+        get_message_from_user(message)
+        message.user.expect :send, nil, ['Stream added']
+
+        stream = MiniTest::Mock.new
+        stream.expect :viewer_count, stream_viewers
+        channel = MiniTest::Mock.new
+        channel.expect :streaming?, true
+        channel.expect :url, stream_url
+        channel.expect :stream, stream
+
+        @db.expect(
+          :execute,
+          [],
+          [
+            'UPDATE Streams SET channel_url=?, viewer_count=?, live=? WHERE channel_name=?',
+            [stream_url, stream_viewers, 1, stream_name]
+          ]
+        )
+
+        Twitch.channels.stub :get, channel do
+          @SUT.add_stream(message, stream_name)
+        end
 
         @db.verify
         message.user.verify

@@ -24,7 +24,7 @@ module Hotsbot
       def initialize(bot, db=nil)
         super bot
 
-        init_db db, 'CREATE TABLE IF NOT EXISTS Streams (channel_name text)'
+        init_db db, 'CREATE TABLE IF NOT EXISTS Streams (channel_name text, channel_url text null, viewer_count int null, live tinyint null)'
       end
 
       def streams(m)
@@ -50,7 +50,9 @@ module Hotsbot
 
         channel_name = get_channel_name(stream)
 
-        db.execute 'INSERT INTO Streams VALUES (?)', [channel_name]
+        db.execute 'INSERT INTO Streams (channel_name) VALUES (?)', [channel_name]
+        cache_stream_data channel_name
+
         m.user.send 'Stream added'
       end
 
@@ -74,6 +76,16 @@ module Hotsbot
 
       def is_user_admin(m)
         config[:admins].include?(m.user.nick)
+      end
+
+      def cache_stream_data(channel_name)
+        channel = Twitch.channels.get(channel_name)
+        if channel
+          @db.execute(
+            'UPDATE Streams SET channel_url=?, viewer_count=?, live=? WHERE channel_name=?',
+            [channel.url, channel.stream.viewer_count, channel.streaming? ? 1 : 0, channel_name]
+          )
+        end
       end
     end
   end
