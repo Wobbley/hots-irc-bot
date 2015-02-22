@@ -211,6 +211,38 @@ module Hotsbot
         channel.verify
       end
 
+      def test_can_refresh_cached_data
+        stream_name = 'foochannel'
+        stream_url = "http://www.twitch.tv/#{stream_name}"
+        stream_viewers = '60'
+
+        @db.expect :execute, [[stream_name]], ['SELECT channel_name FROM Streams']
+
+        stream = MiniTest::Mock.new
+        stream.expect :viewer_count, stream_viewers
+        channel = MiniTest::Mock.new
+        channel.expect :streaming?, true
+        channel.expect :url, stream_url
+        channel.expect :stream, stream
+
+        @db.expect(
+          :execute,
+          [],
+          [
+            'UPDATE Streams SET channel_url=?, viewer_count=?, live=? WHERE channel_name=?',
+            [stream_url, stream_viewers, 1, stream_name]
+          ]
+        )
+
+        Twitch.channels.stub :get, channel do
+          @SUT.refresh_streams
+        end
+
+        @db.verify
+        stream.verify
+        channel.verify
+      end
+
       def get_message_from_user(message, user=@admins.first)
         message.user = MiniTest::Mock.new
         message.user.expect :nick, user

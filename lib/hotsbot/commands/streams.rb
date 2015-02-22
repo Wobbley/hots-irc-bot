@@ -21,6 +21,9 @@ module Hotsbot
       match Command.new('removestream', {stream: :string}).regexp, method: :remove_stream
       match Command.new('liststreams', {}).regexp, method: :list_streams
 
+      timer 10*60, method: :refresh_streams
+      match 'refreshstreams', method: :refresh_streams
+
       def initialize(bot, db=nil)
         super bot
 
@@ -64,9 +67,21 @@ module Hotsbot
 
       def list_streams(m)
         if is_user_admin(m)
-          channel_names = db.execute('SELECT channel_name FROM Streams').map { |c| c.first }
+          channel_names = get_all_channel_names
           m.user.send channel_names.join(' — ')
         end
+      end
+
+      def get_all_channel_names
+        db.execute('SELECT channel_name FROM Streams').map { |c| c.first }
+      end
+
+      def refresh_streams(m=nil)
+        get_all_channel_names.each do |c|
+          cache_stream_data c
+        end
+
+        m.user.send 'Streams refresh done' unless m.nil?
       end
 
       def get_channel_name(stream)
