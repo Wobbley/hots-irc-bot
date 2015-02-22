@@ -8,8 +8,6 @@ Rake::TestTask.new do |t|
   t.pattern = 'test/**/*_test.rb'
 end
 
-Rake::Task
-
 desc 'Run hotsbot'
 task :run do
   Hotsbot::Utils::Configuration.load(File.dirname(__FILE__) + '/config.yml')
