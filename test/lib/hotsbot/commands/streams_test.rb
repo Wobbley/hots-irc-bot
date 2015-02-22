@@ -34,42 +34,27 @@ module Hotsbot
       end
 
       def test_can_list_online_stream
-        stream = 'foochannel'
-        stream_url = "http://www.twitch.tv/#{stream}"
+        stream_name = 'foochannel'
+        stream_url = "http://www.twitch.tv/#{stream_name}"
         stream_viewers = '60'
         stream_2 = 'barchannel'
         stream_2_url = "http://www.twitch.tv/#{stream_2}"
         stream_2_viewers = '120'
 
-        @db.expect :execute, [[stream], [stream_2]], ['SELECT channel_name FROM Streams']
+        @db.expect :execute, [[stream_url, stream_viewers], [stream_2_url, stream_2_viewers]], ['SELECT channel_url, viewer_count FROM Streams WHERE live = 1']
 
         message = OpenStruct.new
         message.target = MiniTest::Mock.new
         message.target.expect :send, nil, ["[Online streamers] #{stream_url} (#{stream_viewers}) — #{stream_2_url} (#{stream_2_viewers})"]
 
-        stream = MiniTest::Mock.new
-        stream.expect :viewer_count, stream_viewers
-        stream.expect :viewer_count, stream_2_viewers
-
-        channel = MiniTest::Mock.new
-        channel.expect :streaming?, true
-        channel.expect :streaming?, true
-        channel.expect :url, stream_url
-        channel.expect :url, stream_2_url
-        channel.expect :stream, stream
-        channel.expect :stream, stream
-
-        Twitch.channels.stub :get, channel do
-          @SUT.streams(message)
-        end
+        @SUT.streams(message)
 
         @db.verify
         message.target.verify
-        channel.verify
       end
 
       def test_if_no_stream_say_so
-        @db.expect :execute, [], ['SELECT channel_name FROM Streams']
+        @db.expect :execute, [], ['SELECT channel_url, viewer_count FROM Streams WHERE live = 1']
 
         message = OpenStruct.new
         message.target = MiniTest::Mock.new
@@ -222,6 +207,8 @@ module Hotsbot
 
         @db.verify
         message.user.verify
+        stream.verify
+        channel.verify
       end
 
       def get_message_from_user(message, user=@admins.first)

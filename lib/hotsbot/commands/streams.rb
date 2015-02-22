@@ -28,7 +28,7 @@ module Hotsbot
       end
 
       def streams(m)
-        results = db.execute 'SELECT channel_name FROM Streams'
+        results = db.execute 'SELECT channel_url, viewer_count FROM Streams WHERE live = 1'
 
         return m.target.send 'No streams yet!' if results.empty?
 
@@ -39,8 +39,7 @@ module Hotsbot
         streams = []
 
         results.each do |s|
-          channel = Twitch.channels.get(s.first)
-          streams << "#{channel.url} (#{channel.stream.viewer_count})" if channel.streaming?
+          streams << "#{s[0]} (#{s[1]})"
         end
         streams
       end
