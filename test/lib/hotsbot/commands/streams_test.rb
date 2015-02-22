@@ -58,7 +58,7 @@ module Hotsbot
 
         message = OpenStruct.new
         message.target = MiniTest::Mock.new
-        message.target.expect :send, nil, ['No streams yet!']
+        message.target.expect :send, nil, ['No streams currently online!']
 
         @SUT.streams(message)
 

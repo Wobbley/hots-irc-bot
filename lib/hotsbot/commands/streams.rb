@@ -33,7 +33,7 @@ module Hotsbot
       def streams(m)
         results = db.execute 'SELECT channel_url, viewer_count FROM Streams WHERE live = 1'
 
-        return m.target.send 'No streams yet!' if results.empty?
+        return m.target.send 'No streams currently online!' if results.empty?
 
         m.target.send "[Online streamers] #{get_streams_url_and_views(results).join(' — ')}"
       end
