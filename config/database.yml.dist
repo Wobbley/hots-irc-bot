@@ -1,0 +1,15 @@
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/transmission-web-ui_development.sqlite3
+
+test:
+  <<: *default
+  database: db/transmission-web-ui_test.sqlite3
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>

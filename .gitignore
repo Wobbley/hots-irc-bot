@@ -1,3 +1,5 @@
 /vendor
 /config.yml
 /hotsbot.db
+/config/database.yml
+/db/*.sqlite3
