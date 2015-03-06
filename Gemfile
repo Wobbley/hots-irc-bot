@@ -13,7 +13,12 @@ gem 'kappa'
 gem 'activerecord'
 gem 'mysql2'
 
-gem 'minitest', group: :test
-gem 'simplecov', group: :test
-gem 'codeclimate-test-reporter', group: :test, require: nil
-gem 'sqlite3', group: :development
+group :development do
+  gem 'sqlite3'
+end
+
+group :test do
+  gem 'minitest'
+  gem 'simplecov'
+  gem 'codeclimate-test-reporter', require: nil
+end
